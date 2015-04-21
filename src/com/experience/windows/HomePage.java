@@ -1,5 +1,11 @@
 package com.experience.windows;
 
+
+import com.experience.model.MyWindow;
+
+
+import javax.swing.JFrame;
+
 /**
  * <p>Description: </p>
  *
@@ -10,4 +16,10 @@ package com.experience.windows;
 public class HomePage
 {
 
+
+    public static void main(String[] args)
+    {
+        MyWindow frame = new MyWindow();
+        frame.init();
+    }
 }
