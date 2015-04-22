@@ -1,6 +1,6 @@
 package com.experience.model;
 
-import java.awt.BorderLayout;
+
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -18,20 +18,24 @@ public class MyWindow extends JFrame
 {
     public MyWindow()
     {
-        JPanel panel = new JPanel(new BorderLayout());
+        JPanel panel = new JPanel(new FlowLayout());
         panel.add(new JButton("管理登录"));
-        panel.setLayout(new FlowLayout());
+        /*JPanel contentPane=new JPanel(){
+            public void paint(Graphics g) {
+                ImageIcon icon=new ImageIcon("2.jpg");
+                Image image=icon.getImage();
+                g.drawImage(image, 0,0,null);
+            }
+        };*/
         getContentPane().add(panel);
     }
 
     public void init()
     {
-/*Set the location relative to the parent component.
-If the parent is null,it will be set in the center of screen.*/
-
-        this.setLocationRelativeTo(null);
-        /*pack() is used to adjust the size of frame to load the component.*/
-        this.pack();
+    /*Set the location relative to the parent component.
+    If the parent is null,it will be set in the center of screen.*/
+        this.setSize(800, 600);
+        setLocationRelativeTo(null);
         this.setVisible(true);
     }
 }
