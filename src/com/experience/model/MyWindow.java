@@ -28,7 +28,10 @@ public class MyWindow extends JFrame
     {
 /*Set the location relative to the parent component.
 If the parent is null,it will be set in the center of screen.*/
+
         this.setLocationRelativeTo(null);
+        /*pack() is used to adjust the size of frame to load the component.*/
+        this.pack();
         this.setVisible(true);
     }
 }
