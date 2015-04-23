@@ -1,6 +1,5 @@
 package com.experience.windows;
 
-
 import com.experience.model.MyWindow;
 
 /**
@@ -14,7 +13,7 @@ public class HomePage
 {
     public static void main(String[] args)
     {
-        MyWindow frame = new MyWindow();
+        MyWindow frame = new MyWindow("res/background.jpg");
         frame.init();
     }
 }

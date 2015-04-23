@@ -2,7 +2,10 @@ package com.experience.model;
 
 
 import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Image;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,17 +19,23 @@ import javax.swing.JPanel;
  */
 public class MyWindow extends JFrame
 {
+    public MyWindow(String image_path)
+    {
+        JPanel image_panel = new JPanel()
+        {
+            public void paint(Graphics g)
+            {
+                Image image = new ImageIcon(image_path).getImage();
+                g.drawImage(image, 0, 0, null);
+            }
+        };
+        this.getContentPane().add(image_panel);
+    }
+
     public MyWindow()
     {
         JPanel panel = new JPanel(new FlowLayout());
         panel.add(new JButton("管理登录"));
-        /*JPanel contentPane=new JPanel(){
-            public void paint(Graphics g) {
-                ImageIcon icon=new ImageIcon("2.jpg");
-                Image image=icon.getImage();
-                g.drawImage(image, 0,0,null);
-            }
-        };*/
         getContentPane().add(panel);
     }
 
