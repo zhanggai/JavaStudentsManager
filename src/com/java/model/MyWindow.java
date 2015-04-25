@@ -1,12 +1,10 @@
-package com.experience.model;
-
+package com.java.model;
 
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -19,33 +17,45 @@ import javax.swing.JPanel;
  */
 public class MyWindow extends JFrame
 {
+    private JPanel image_panel;
+    private JPanel defaultPanel;
     public MyWindow(String image_path)
     {
-        JPanel image_panel = new JPanel()
+        image_panel = new JPanel()
         {
+            @Override
             public void paint(Graphics g)
             {
                 Image image = new ImageIcon(image_path).getImage();
-                g.drawImage(image, 0, 0, null);
+                g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
             }
         };
-        this.getContentPane().add(image_panel);
+        add(image_panel);
     }
+
 
     public MyWindow()
     {
-        JPanel panel = new JPanel(new FlowLayout());
-        panel.add(new JButton("管理登录"));
-        getContentPane().add(panel);
+        defaultPanel = new JPanel(new FlowLayout());
+        add(defaultPanel);
     }
 
+    public JPanel getImage_panel()
+    {
+        return image_panel;
+    }
+
+    public JPanel getDefaultPanel()
+    {
+        return defaultPanel;
+    }
     public void init()
     {
     /*Set the location relative to the parent component.
     If the parent is null,it will be set in the center of screen.*/
-        this.setSize(800, 600);
+        setSize(800, 600);
         setLocationRelativeTo(null);
-        this.setVisible(true);
+        setVisible(true);
     }
 }
 
