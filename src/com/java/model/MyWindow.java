@@ -1,12 +1,12 @@
 package com.java.model;
 
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.Font;
+import java.awt.Toolkit;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
 /**
  * <p>Description:A class that describes window.</p>
@@ -17,45 +17,25 @@ import javax.swing.JPanel;
  */
 public class MyWindow extends JFrame
 {
-    private JPanel image_panel;
-    private JPanel defaultPanel;
-    public MyWindow(String image_path)
-    {
-        image_panel = new JPanel()
-        {
-            @Override
-            public void paint(Graphics g)
-            {
-                Image image = new ImageIcon(image_path).getImage();
-                g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-            }
-        };
-        add(image_panel);
-    }
+    protected JPanel contentPane;//子类可访问
 
-
-    public MyWindow()
+    public void initialWindow(String title, String topic_label, int[] location)
     {
-        defaultPanel = new JPanel(new FlowLayout());
-        add(defaultPanel);
-    }
-
-    public JPanel getImage_panel()
-    {
-        return image_panel;
-    }
-
-    public JPanel getDefaultPanel()
-    {
-        return defaultPanel;
-    }
-    public void init()
-    {
-    /*Set the location relative to the parent component.
-    If the parent is null,it will be set in the center of screen.*/
-        setSize(800, 600);
-        setLocationRelativeTo(null);
-        setVisible(true);
+        setType(Type.UTILITY);//窗口标题栏类型
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);//设置点击叉的操作
+        setAutoRequestFocus(true);//窗口自动最前
+        setIconImage(Toolkit.getDefaultToolkit().getImage(Path.ICON));//设置左上角图标
+        setSize(650, 450);
+        setLocationRelativeTo(null);//窗口居中
+        setTitle(title);
+        contentPane = new JPanel();
+        setContentPane(contentPane);
+        contentPane.setLayout(null);//设置绝对布局
+        //欢迎语
+        JLabel label = new JLabel(topic_label);
+        label.setFont(new Font("华文行楷", Font.PLAIN, 41));
+        label.setBounds(location[0], location[1], location[2], location[3]);
+        contentPane.add(label);
     }
 }
 
