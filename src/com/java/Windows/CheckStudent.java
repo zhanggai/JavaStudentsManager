@@ -2,6 +2,9 @@ package com.java.Windows;
 
 import com.java.model.MyWindow;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -10,8 +13,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
+
 public class CheckStudent extends MyWindow
 {
+
 
     /**
      * Create the frame.
@@ -39,6 +44,14 @@ public class CheckStudent extends MyWindow
         textField.setColumns(10);
 
         JButton button = new JButton("搜索");
+        button.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+
+            }
+        });
         button.setBounds(457, 54, 63, 23);
         contentPane.add(button);
 

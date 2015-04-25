@@ -21,7 +21,7 @@ public class MyWindow extends JFrame
 
     public void initialWindow(String title, String topic_label, int[] location)
     {
-        setType(Type.UTILITY);//窗口标题栏类型
+        setType(Type.POPUP);//窗口标题栏类型
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);//设置点击叉的操作
         setAutoRequestFocus(true);//窗口自动最前
         setIconImage(Toolkit.getDefaultToolkit().getImage(Path.ICON));//设置左上角图标
@@ -36,6 +36,7 @@ public class MyWindow extends JFrame
         label.setFont(new Font("华文行楷", Font.PLAIN, 41));
         label.setBounds(location[0], location[1], location[2], location[3]);
         contentPane.add(label);
+        setResizable(false);//窗口大小固定
     }
 }
 

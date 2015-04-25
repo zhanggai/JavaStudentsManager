@@ -12,8 +12,6 @@ import javax.swing.SwingConstants;
 
 public class HomePage extends MyWindow
 {
-
-
     /**
      * Create the frame.
      */
@@ -56,8 +54,11 @@ public class HomePage extends MyWindow
         button_3.setBounds(110, 342, 105, 35);
         contentPane.add(button_3);
 
-        JButton button_2 = new JButton("退出系统");
-        button_2.addActionListener(e -> System.exit(EXIT_ON_CLOSE));
+        JButton button_2 = new JButton("注销账户");
+        button_2.addActionListener(e -> {
+            new Login();
+            setVisible(false);
+        });
         button_2.setFont(new Font("微软雅黑", Font.PLAIN, 17));
         button_2.setBounds(228, 342, 105, 35);
         contentPane.add(button_2);
