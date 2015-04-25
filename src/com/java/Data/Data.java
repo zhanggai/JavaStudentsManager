@@ -1,6 +1,6 @@
-package com.experience;
+package com.java.Data;
 
-import com.experience.model.Student;
+import com.java.model.Student;
 
 import java.util.ArrayList;
 import java.util.List;

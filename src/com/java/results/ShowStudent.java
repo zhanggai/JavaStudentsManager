@@ -1,6 +1,6 @@
-package com.experience.results;
+package com.java.results;
 
-import com.experience.model.Student;
+import com.java.model.Student;
 
 /**
  * <p>Description: Show any item of student.</p>

@@ -1,4 +1,4 @@
-package com.experience.model;
+package com.java.model;
 
 /**
  * <p>Description:Students </p>
@@ -29,6 +29,11 @@ public class Student
         this.nativePlace = nativePlace;
         this.id = id;
         this.sex = sex;
+    }
+
+    public static void main(String[] args)
+    {
+        System.out.println(new Student());
     }
 
     /*getter and setter*/
@@ -91,10 +96,5 @@ public class Student
                 ", nativePlace=" + nativePlace +
                 ", id=" + id +
                 ", sex=" + sex;
-    }
-
-    public static void main(String[] args)
-    {
-        System.out.println(new Student());
     }
 }

@@ -1,8 +1,8 @@
-package com.experience.functions;
+package com.java.functions;
 
 
-import com.experience.Data;
-import com.experience.model.Student;
+import com.java.Data.Data;
+import com.java.model.Student;
 
 /**
  * <p>Description: function of adding students</p>
