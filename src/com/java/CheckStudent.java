@@ -29,7 +29,7 @@ public class CheckStudent extends JFrame
     {
         setAutoRequestFocus(true);//窗口自动最前
         setTitle("学生信息");
-        setIconImage(Toolkit.getDefaultToolkit().getImage("F:\\\u56FE\u7247\\ps\u7D20\u6750\\\u6241\u5E73\u5316\\Nokia-MixRadio.png"));//设置左上角图标
+        setIconImage(Toolkit.getDefaultToolkit().getImage("F:\\图片\\ps素材\\扁平化\\Nokia-MixRadio.png"));//设置左上角图标
         /*setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);*/
         setBounds(100, 100, 650, 450);
         contentPane = new JPanel();
