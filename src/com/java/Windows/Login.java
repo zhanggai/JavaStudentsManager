@@ -4,11 +4,8 @@ import com.java.model.MyWindow;
 import com.java.model.User;
 
 import java.awt.Font;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
@@ -64,22 +61,6 @@ public class Login extends MyWindow
         });
         contentPane.add(btnNewButton);
 
-
-        JCheckBox chckbxNewCheckBox = new JCheckBox("记住密码");
-        chckbxNewCheckBox.addItemListener(new ItemListener()
-        {
-            @Override
-            public void itemStateChanged(ItemEvent e)
-            {
-
-            }
-        });
-        chckbxNewCheckBox.setFont(new Font("微软雅黑", Font.PLAIN, 12));
-        chckbxNewCheckBox.setBounds(280, 244, 78, 23);
-        contentPane.add(chckbxNewCheckBox);
-
-
         setVisible(true);
     }
-
 }

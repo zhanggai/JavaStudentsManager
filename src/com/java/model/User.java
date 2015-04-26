@@ -1,7 +1,9 @@
 package com.java.model;
 
 /**
- * <p>Description: User</p>
+ * <p>
+ * Description: User
+ * </p>
  *
  * @author XuDing
  * @version 1.0
@@ -9,6 +11,6 @@ package com.java.model;
  */
 public class User
 {
-    public static String ID = "admin";
-    public static char[] PASSWORD = new char[]{1, 2, 3, 4, 5, 6};
+	public static String ID = "admin";
+	public static char[] PASSWORD = new char[]{1, 2, 3, 4, 5, 6};
 }

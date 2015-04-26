@@ -9,7 +9,7 @@ package com.java.model;
  */
 public class Path
 {
-    public static final String ICON = "F:\\\\图片\\\\ps素材\\\\扁平化\\\\Nokia-MixRadio.png";
+    public static final String ICON = "F:\\图片\\ps素材\\扁平化\\Nokia-MixRadio.png";
     public static final String BAYMAX = "F:\\图片\\BayMax.png";
 }
 
