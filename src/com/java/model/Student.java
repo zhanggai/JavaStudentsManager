@@ -21,7 +21,6 @@ public class Student
 	public Student()
 	{
 		this("2014011176", "王晓明", "男", "河北", "1996.1.1");
-
 	}
 
 	public Student(String id, String name, String sex, String nativePlace, String birthday)
@@ -35,8 +34,7 @@ public class Student
 
 	public Object[] getData()
 	{
-		Object[] data = {getId(), getName(), getSex(), getNativePlace(), getBirthday()};
-		return data;
+		return new Object[]{getId(), getName(), getSex(), getNativePlace(), getBirthday()};
 	}
 
 	/* getter and setter */
