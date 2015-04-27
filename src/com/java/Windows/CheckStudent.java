@@ -6,8 +6,6 @@ import com.java.model.MyWindow;
 import com.java.model.Student;
 
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -41,7 +39,7 @@ public class CheckStudent extends MyWindow
 	public void initTable(JTable table)
 	{
 		// 自定义第一列更宽
-		TableColumn column = null;
+		TableColumn column;
 		for (int i = 0; i < 5; i++)
 		{
 			column = table.getColumnModel().getColumn(i);
@@ -61,15 +59,9 @@ public class CheckStudent extends MyWindow
 
 		JButton buttonImport = new JButton("导入数据");
 		buttonImport.setFont(new Font("微软雅黑", Font.PLAIN, 15));
-		buttonImport.addActionListener(new ActionListener()
-		{
-
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				studentData.initData();
-				table.updateUI();
-			}
+		buttonImport.addActionListener(e -> {
+			studentData.initData();
+			table.updateUI();
 		});
 		buttonImport.setBounds(510, 55, 100, 21);
 		contentPane.add(buttonImport);
@@ -86,9 +78,7 @@ public class CheckStudent extends MyWindow
 
 		JButton button_1 = new JButton("取消选中");
 		button_1.setFont(new Font("微软雅黑", Font.PLAIN, 15));
-		button_1.addActionListener(e -> {
-			table.clearSelection();
-		});
+		button_1.addActionListener(e -> table.clearSelection());
 		button_1.setBounds(230, 364, 95, 23);
 		contentPane.add(button_1);
 

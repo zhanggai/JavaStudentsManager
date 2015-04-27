@@ -50,8 +50,8 @@ public class MyTableModel extends AbstractTableModel
     // 设置第一列不可编辑
     public boolean isCellEditable(int row, int col)
     {
-        return col == 0 ? false : true;
-    }
+        return col != 0;
+    }//col == 0 ? false : true
 
     public void setValueAt(Object value, int row, int col)
     {
