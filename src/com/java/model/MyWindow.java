@@ -1,5 +1,7 @@
 package com.java.model;
 
+import com.java.tools.Path;
+
 import java.awt.Font;
 import java.awt.Toolkit;
 
@@ -19,29 +21,24 @@ import javax.swing.WindowConstants;
  */
 public class MyWindow extends JFrame
 {
-	protected JPanel contentPane;// 子类可访问
-
-	public MyWindow()
-	{
-	}
+	protected JPanel contentPane;// keep the variable be available to subclass
 
 	public void initialWindow(String title, String topic_label, int[] location)
 	{
-		setType(Type.POPUP);// 窗口标题栏类型
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);// 设置点击叉的操作
-		setAutoRequestFocus(true);// 窗口自动最前
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Path.ICON));// 设置左上角图标
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);// set the operation of clicking the fork
+		setAutoRequestFocus(true);// keep the window focused
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Path.ICON));// set icon
 		setSize(650, 450);
-		setLocationRelativeTo(null);// 窗口居中
+		setLocationRelativeTo(null);// set the window in the center of screen
 		setTitle(title);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
-		contentPane.setLayout(null);// 设置绝对布局
-		// 欢迎语
+		contentPane.setLayout(null);// set the layout by coordinate
+		// set topic
 		JLabel label = new JLabel(topic_label);
 		label.setFont(new Font("华文行楷", Font.PLAIN, 41));
 		label.setBounds(location[0], location[1], location[2], location[3]);
 		contentPane.add(label);
-		setResizable(false);// 窗口大小固定
+		setResizable(false);// make the window keep it's size
 	}
 }

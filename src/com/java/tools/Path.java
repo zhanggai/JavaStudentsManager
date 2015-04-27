@@ -1,4 +1,4 @@
-package com.java.model;
+package com.java.tools;
 
 /**
  * <p>Description: static path of resource. </p>
@@ -11,5 +11,6 @@ public class Path
 {
     public static final String ICON = "res\\icon.png";
     public static final String BAYMAX = "res\\baymax.png";
+    public static final String YAHEI = "微软雅黑";
 }
 

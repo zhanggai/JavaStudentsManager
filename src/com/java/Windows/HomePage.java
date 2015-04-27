@@ -1,7 +1,7 @@
 package com.java.Windows;
 
 import com.java.model.MyWindow;
-import com.java.model.Path;
+import com.java.tools.Path;
 
 import java.awt.Font;
 
@@ -24,7 +24,6 @@ public class HomePage extends MyWindow
         contentPane.add(lblNewLabel);
         lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         lblNewLabel.setVerticalAlignment(SwingConstants.BOTTOM);
-		/*lblNewLabel.setToolTipText("");*/
         lblNewLabel.setIcon(new ImageIcon(Path.BAYMAX));//设置标签图片
 
         JButton button = new JButton("进入系统");
