@@ -1,80 +1,119 @@
 package com.java.Windows;
 
+import com.java.Data.Data;
+import com.java.model.MyTableModel;
 import com.java.model.MyWindow;
+import com.java.model.Student;
+
+import java.awt.Font;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
+import javax.swing.table.TableColumn;
 
 public class CheckStudent extends MyWindow
 {
+	/**
+	 * Create the frame.
+	 */
+	Data studentData = Data.getData();
 
-    /**
-     * Create the frame.
-     */
-    public CheckStudent()
-    {
-        initialWindow("学生信息", "学生信息", new int[]{238, 10, 173, 45});
+	public CheckStudent()
+	{
+		initialWindow("学生信息", "学生信息", new int[]{238, 10, 173, 45});
+		JTable table = new JTable(new MyTableModel());
+		table.setAutoCreateRowSorter(true);// 排序
+		initTable(table);
+	}
 
-        JTable table = new JTable(15, 6);
-        table.setRowSelectionAllowed(false);
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	public CheckStudent(Student student)
+	{
+		initialWindow("学生信息", "学生信息", new int[]{238, 10, 173, 45});
+		JTable table = new JTable(new MyTableModel(student));
+		table.setAutoCreateRowSorter(true);// 排序
+		initTable(table);
+	}
 
-        table.setBounds(10, 86, 614, 240);
-        contentPane.add(table);
+	public void initTable(JTable table)
+	{
+		// 自定义第一列更宽
+		TableColumn column;
+		for (int i = 0; i < 5; i++)
+		{
+			column = table.getColumnModel().getColumn(i);
+			if (i == 0)
+			{
+				column.setPreferredWidth(100); // third column is bigger
+			} else
+			{
+				column.setPreferredWidth(50);
+			}
+		}
 
+		JScrollPane scrollPane = new JScrollPane(table);
+		table.setFillsViewportHeight(true);// 当数据超过容器高度时，仍然把数据加载到容器里
+		scrollPane.setBounds(10, 86, 614, 240);
+		contentPane.add(scrollPane);
 
+		JButton buttonImport = new JButton("导入数据");
+		buttonImport.setFont(new Font("微软雅黑", Font.PLAIN, 15));
+		buttonImport.addActionListener(e -> {
+			studentData.initData();
+			table.updateUI();
+		});
+		buttonImport.setBounds(510, 55, 100, 21);
+		contentPane.add(buttonImport);
 
-        JComboBox comboBox = new JComboBox();
-        comboBox.setBounds(360, 55, 76, 21);
-        contentPane.add(comboBox);
+		JButton btnAddButton = new JButton("添加学生");
+		btnAddButton.setFont(new Font("微软雅黑", Font.PLAIN, 15));
+		btnAddButton.addActionListener(e -> {
+			new AddStudent();
+			setVisible(false);
 
-        JTextField textField = new JTextField();
-        textField.setBounds(133, 55, 217, 21);
-        contentPane.add(textField);
-        textField.setColumns(10);
+		});
+		btnAddButton.setBounds(130, 364, 95, 23);
+		contentPane.add(btnAddButton);
 
-        JButton button = new JButton("搜索");
-        button.setBounds(457, 54, 63, 23);
-        contentPane.add(button);
+		JButton button_1 = new JButton("取消选中");
+		button_1.setFont(new Font("微软雅黑", Font.PLAIN, 15));
+		button_1.addActionListener(e -> table.clearSelection());
+		button_1.setBounds(230, 364, 95, 23);
+		contentPane.add(button_1);
 
-        JButton button_1 = new JButton("保存修改");
-        button_1.addActionListener(e -> {
+		JButton btnNewButton = new JButton("删除选中");
+		btnNewButton.setFont(new Font("微软雅黑", Font.PLAIN, 15));
+		btnNewButton.addActionListener(e -> {
+			if (table.getSelectedRow() == -1)
+			{
+				JOptionPane.showMessageDialog(null, "没有选中项！！");
+			} else
+			{
 
-        });
-        button_1.setBounds(279, 364, 93, 23);
-        contentPane.add(button_1);
+				int r = JOptionPane.showConfirmDialog(null, "删除后不可恢复，你确定要删除吗？", "确认删除", JOptionPane.YES_NO_OPTION);
+				if (r == 0)
+				{// 返回选定行数
+					studentData.remove(table.getSelectedRow());
+					// 刷新表格
+					table.updateUI();
+				}
+			}
+		});
+		btnNewButton.setBounds(330, 364, 95, 23);
+		contentPane.add(btnNewButton);
 
-        JButton btnNewButton = new JButton("删除选中");
-        btnNewButton.addActionListener(e -> JOptionPane.showConfirmDialog(null, "删除后不可恢复，你确定要删除吗？", "确认删除", JOptionPane.OK_CANCEL_OPTION));
-        btnNewButton.setBounds(176, 364, 93, 23);
-        contentPane.add(btnNewButton);
+		JButton button_2 = new JButton("注销账户");
+		button_2.setFont(new Font("微软雅黑", Font.PLAIN, 15));
+		button_2.addActionListener(e -> {
+			new Login();
+			setVisible(false);
+		});
+		button_2.setBounds(430, 364, 95, 23);
+		contentPane.add(button_2);
 
-        JButton button_2 = new JButton("返回首页");
-        button_2.addActionListener(e -> {
-            new HomePage();
-            setVisible(false);
-        });
-        button_2.setBounds(382, 364, 93, 23);
-        contentPane.add(button_2);
+		setVisible(true);
 
-        JLabel label_1 = new JLabel("第");
-        label_1.setBounds(489, 336, 30, 15);
-        contentPane.add(label_1);
+	}
 
-        JComboBox comboBox_1 = new JComboBox();
-        comboBox_1.setBounds(507, 333, 48, 21);
-        contentPane.add(comboBox_1);
-
-        JLabel label_2 = new JLabel("页");
-        label_2.setBounds(558, 336, 54, 15);
-        contentPane.add(label_2);
-
-
-        setVisible(true);
-    }
 }

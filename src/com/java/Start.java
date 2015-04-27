@@ -3,7 +3,9 @@ package com.java;
 import com.java.Windows.Login;
 
 /**
- * <p>Description: Start the system</p>
+ * <p>
+ * Description: Start the system
+ * </p>
  *
  * @author XuDing
  * @version 1.0
@@ -11,8 +13,8 @@ import com.java.Windows.Login;
  */
 public class Start
 {
-    public static void main(String[] args)
-    {
-        new Login();
-    }
+	public static void main(String[] args)
+	{
+		new Login();
+	}
 }
