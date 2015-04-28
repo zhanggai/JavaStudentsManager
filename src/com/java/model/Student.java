@@ -37,6 +37,11 @@ public class Student
 		return new Object[]{getId(), getName(), getSex(), getNativePlace(), getBirthday()};
 	}
 
+	public String getId()
+	{
+		return id;
+	}
+
 	/* getter and setter */
 	public String getName()
 	{
@@ -46,6 +51,16 @@ public class Student
 	public void setName(String name)
 	{
 		this.name = name;
+	}
+
+	public String getSex()
+	{
+		return sex;
+	}
+
+	public String getNativePlace()
+	{
+		return nativePlace;
 	}
 
 	public String getBirthday()
@@ -58,29 +73,9 @@ public class Student
 		this.birthday = birthday;
 	}
 
-	public String getNativePlace()
-	{
-		return nativePlace;
-	}
-
 	public void setNativePlace(String nativePlace)
 	{
 		this.nativePlace = nativePlace;
-	}
-
-	public String getId()
-	{
-		return id;
-	}
-
-	public void setId(String id)
-	{
-		this.id = id;
-	}
-
-	public String getSex()
-	{
-		return sex;
 	}
 
 	public void setSex(String sex)
@@ -88,10 +83,8 @@ public class Student
 		this.sex = sex;
 	}
 
-	@Override
-	public String toString()
+	public void setId(String id)
 	{
-		return "Student [name=" + name + ", birthday=" + birthday + ", nativePlace=" + nativePlace + ", id=" + id + ", sex=" + sex + "]";
+		this.id = id;
 	}
-
 }

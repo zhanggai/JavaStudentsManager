@@ -1,4 +1,4 @@
-package com.java.tools;
+package com.java.Container;
 
 import com.java.Windows.AboutUs;
 import com.java.Windows.AddStudent;
@@ -17,7 +17,8 @@ import java.util.HashMap;
  */
 
 public class WindowCache
-{//save all window instance
+{
+    //save all window instance
     static HashMap<String, MyWindow> windowMap = new HashMap<>();
 
     static
@@ -27,6 +28,7 @@ public class WindowCache
         windowMap.put("check_student", new CheckStudent());
         windowMap.put("add_student", new AddStudent());
         windowMap.put("about_us", new AboutUs());
+        windowMap.put(null, null);
     }
 
     public static void showWindow(String key)

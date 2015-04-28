@@ -1,6 +1,6 @@
 package com.java.model;
 
-import com.java.tools.Path;
+import com.java.Container.Strings;
 
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -25,7 +25,7 @@ public class MyWindow extends JFrame
     {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);// set the operation of clicking the fork
         setAutoRequestFocus(true);// keep the window focused
-        setIconImage(Toolkit.getDefaultToolkit().getImage(Path.ICON));// set icon
+        setIconImage(Toolkit.getDefaultToolkit().getImage(Strings.ICON));// set icon
         setSize(650, 450);
         setLocationRelativeTo(null);// set the window in the center of screen
         setTitle(title);

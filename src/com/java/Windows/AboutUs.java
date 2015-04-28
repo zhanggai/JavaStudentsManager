@@ -1,52 +1,35 @@
 package com.java.Windows;
 
+import com.java.Container.WindowCache;
+import com.java.model.MyButton;
+import com.java.model.MyLabel;
 import com.java.model.MyWindow;
-import com.java.tools.Path;
-import com.java.tools.WindowCache;
 
-import java.awt.Font;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class AboutUs extends MyWindow
 {
-
-    /**
-     * Create the frame.
-     */
     public AboutUs()
     {
         initialWindow("关于我们", "关于我们", new int[]{227, 27, 181, 55});
 
-        JLabel label_1 = new JLabel("班级：计类1402");
-        label_1.setFont(new Font(Path.YAHEI, Font.PLAIN, 21));
-        label_1.setBounds(237, 103, 234, 46);
-        contentPane.add(label_1);
+        contentPane.add(new MyLabel("班级：计类1402", 237, 103, 234, 46, 21));
+        contentPane.add(new MyLabel("徐鼎", 291, 177, 57, 30, 22));
+        contentPane.add(new MyLabel("郑炜", 291, 229, 57, 30, 22));
+        contentPane.add(new MyLabel("许广悦", 282, 275, 79, 30, 22));
 
-        JLabel label_2 = new JLabel("徐鼎");
-        label_2.setFont(new Font(Path.YAHEI, Font.PLAIN, 22));
-        label_2.setBounds(291, 177, 57, 30);
-        contentPane.add(label_2);
-
-        JLabel label_3 = new JLabel("郑炜");
-        label_3.setFont(new Font(Path.YAHEI, Font.PLAIN, 22));
-        label_3.setBounds(291, 229, 57, 30);
-        contentPane.add(label_3);
-
-        JLabel label_4 = new JLabel("许广悦");
-        label_4.setFont(new Font(Path.YAHEI, Font.PLAIN, 22));
-        label_4.setBounds(282, 275, 79, 30);
-        contentPane.add(label_4);
-
-        JButton backToHome = new JButton("返回首页");
-        backToHome.setFont(new Font(Path.YAHEI, Font.PLAIN, 17));
-        backToHome.setBounds(265, 342, 105, 35);
-        backToHome.addActionListener(e -> {
-            WindowCache.showWindow("home_page");
-            setVisible(false);
+        MyButton Button_back = new MyButton("返回首页", 17, 265, 342, 105, 35);
+        Button_back.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                WindowCache.showWindow("home_page");
+                setVisible(false);
+            }
         });
-        contentPane.add(backToHome);
+        contentPane.add(Button_back);
 
     }
 }

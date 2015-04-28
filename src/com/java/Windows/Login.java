@@ -1,65 +1,60 @@
 package com.java.Windows;
 
+import com.java.Container.Strings;
+import com.java.Container.WindowCache;
+import com.java.model.MyButton;
+import com.java.model.MyLabel;
+import com.java.model.MyTextField;
 import com.java.model.MyWindow;
-import com.java.model.User;
-import com.java.tools.WindowCache;
 
-import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 
 public class Login extends MyWindow
 {
     public Login()
     {
-
         initialWindow("登录", "管理员登录", new int[]{203, 31, 216, 55});
 
-        JLabel label_1 = new JLabel("账号：");
-        label_1.setFont(new Font("微软雅黑", Font.PLAIN, 17));
-        label_1.setBounds(142, 131, 54, 15);
-        contentPane.add(label_1);
+        contentPane.add(new MyLabel("账号：", 142, 119, 66, 30));
+        contentPane.add(new MyLabel("密码：", 142, 193, 66, 30));
 
-        JLabel label_2 = new JLabel("密码：");
-        label_2.setFont(new Font("微软雅黑", Font.PLAIN, 17));
-        label_2.setBounds(142, 204, 54, 15);
-        contentPane.add(label_2);
-
-        JTextField textField = new JTextField();
-        textField.setText(User.ID);
-        textField.setBounds(227, 122, 192, 29);
+        MyTextField textField = new MyTextField(Strings.ID, 227, 122, 192, 29);
         contentPane.add(textField);
-        textField.setColumns(10);
 
         JPasswordField passwordField = new JPasswordField();
-        passwordField.setText(String.valueOf(User.PASSWORD));
+        passwordField.setText(String.valueOf(Strings.PASSWORD));
         passwordField.setBounds(227, 195, 192, 29);
         contentPane.add(passwordField);
 
-        JButton btnNewButton = new JButton("登录");
-        btnNewButton.setFont(new Font("微软雅黑", Font.PLAIN, 20));
-        btnNewButton.setBounds(270, 310, 98, 38);
-        btnNewButton.addActionListener(e -> {
-
-            String id = textField.getText();
-            String password = new String(passwordField.getPassword());
-            String userId = User.ID;
-            String userPw = new String(User.PASSWORD);
-
-            if (id.equals(userId) && password.equals(userPw))
+        MyButton button_login = new MyButton("登录", 20, 270, 310, 98, 38);
+        button_login.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
             {
-                WindowCache.showWindow("home_page");
-                setVisible(false);
-            } else
-            {
-                JOptionPane.showMessageDialog(null, "用户名或密码错误！", "错误", JOptionPane.ERROR_MESSAGE);
+                {
+                    String id = textField.getText();
+                    String password = new String(passwordField.getPassword());
+                    loginConfirm(id, password);
+                }
             }
-
         });
-        contentPane.add(btnNewButton);
+        contentPane.add(button_login);
+    }
+
+    public void loginConfirm(String id, String password)
+    {
+        if (id.equals(Strings.ID) && password.equals(new String(Strings.PASSWORD)))
+        {
+            WindowCache.showWindow("home_page");
+            setVisible(false);
+        } else
+        {
+            JOptionPane.showMessageDialog(null, "用户名或密码错误！", "错误", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

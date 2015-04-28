@@ -3,46 +3,52 @@ package com.java.model;
 import com.java.Data.Data;
 
 import javax.swing.table.AbstractTableModel;
-
+/**
+ * <p>Description: a table model</p>
+ *
+ * @author XuDing
+ * @version 1.0
+ */
 public class MyTableModel extends AbstractTableModel
 {
 
     String[] columnNames = {"学号", "姓名", "性别", "籍贯", "生日"};
     Data studentsData = Data.getData();
 
-    // 设置行数
+    // get the number of rows
     @Override
     public int getRowCount()
     {
         return studentsData.size();
     }
 
-    // 设置列数
+    // get the number of cols
     @Override
     public int getColumnCount()
     {
         return columnNames.length;
     }
 
-    // 填充数据
+    // get the value of the location
     @Override
     public Object getValueAt(int rows, int cols)
     {
         return studentsData.get(rows).getData()[cols];
     }
 
-    // 显示列名
+    // get the col's name
     public String getColumnName(int col)
     {
         return columnNames[col];
     }
 
-    // 设置第一列不可编辑
+    // set the first col be unmodified
     public boolean isCellEditable(int row, int col)
     {
         return col != 0;
     }//col == 0 ? false : true
 
+    //set the value of what you are editing.
     public void setValueAt(Object value, int row, int col)
     {
         Student s = studentsData.get(row);
