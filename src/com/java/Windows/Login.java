@@ -2,6 +2,7 @@ package com.java.Windows;
 
 import com.java.model.MyWindow;
 import com.java.model.User;
+import com.java.tools.WindowCache;
 
 import java.awt.Font;
 
@@ -51,7 +52,7 @@ public class Login extends MyWindow
 
             if (id.equals(userId) && password.equals(userPw))
             {
-                new HomePage();
+                WindowCache.showWindow("home_page");
                 setVisible(false);
             } else
             {
@@ -60,7 +61,5 @@ public class Login extends MyWindow
 
         });
         contentPane.add(btnNewButton);
-
-        setVisible(true);
     }
 }

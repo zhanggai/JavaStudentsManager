@@ -2,6 +2,7 @@ package com.java.Windows;
 
 import com.java.model.MyWindow;
 import com.java.tools.Path;
+import com.java.tools.WindowCache;
 
 import java.awt.Font;
 
@@ -42,11 +43,10 @@ public class AboutUs extends MyWindow
         backToHome.setFont(new Font(Path.YAHEI, Font.PLAIN, 17));
         backToHome.setBounds(265, 342, 105, 35);
         backToHome.addActionListener(e -> {
-            new HomePage();
+            WindowCache.showWindow("home_page");
             setVisible(false);
         });
         contentPane.add(backToHome);
 
-        setVisible(true);
     }
 }

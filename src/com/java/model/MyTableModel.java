@@ -7,17 +7,14 @@ import javax.swing.table.AbstractTableModel;
 public class MyTableModel extends AbstractTableModel
 {
 
-
     String[] columnNames = {"学号", "姓名", "性别", "籍贯", "生日"};
     Data studentsData = Data.getData();
 
-    public MyTableModel()
+    // 设置行数
+    @Override
+    public int getRowCount()
     {
-    }
-
-    public MyTableModel(Student student)
-    {
-        studentsData.add(student);
+        return studentsData.size();
     }
 
     // 设置列数
@@ -25,13 +22,6 @@ public class MyTableModel extends AbstractTableModel
     public int getColumnCount()
     {
         return columnNames.length;
-    }
-
-    // 设置行数
-    @Override
-    public int getRowCount()
-    {
-        return studentsData.size();
     }
 
     // 填充数据
@@ -77,6 +67,5 @@ public class MyTableModel extends AbstractTableModel
                 break;
         }
     }
-
 
 }

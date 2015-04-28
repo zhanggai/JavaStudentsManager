@@ -3,7 +3,7 @@ package com.java.Windows;
 import com.java.Data.Data;
 import com.java.model.MyTableModel;
 import com.java.model.MyWindow;
-import com.java.model.Student;
+import com.java.tools.WindowCache;
 
 import java.awt.Font;
 
@@ -37,7 +37,7 @@ public class CheckStudent extends MyWindow
             column = table.getColumnModel().getColumn(i);
             if (i == 0)
             {
-                column.setPreferredWidth(100); // third column is bigger
+                column.setPreferredWidth(100);
             } else
             {
                 column.setPreferredWidth(50);
@@ -61,16 +61,19 @@ public class CheckStudent extends MyWindow
         JButton btnAddButton = new JButton("添加学生");
         btnAddButton.setFont(new Font("微软雅黑", Font.PLAIN, 15));
         btnAddButton.addActionListener(e -> {
-            new AddStudent();
+            WindowCache.showWindow("add_student");
             setVisible(false);
 
         });
         btnAddButton.setBounds(130, 364, 95, 23);
         contentPane.add(btnAddButton);
 
-        JButton button_1 = new JButton("取消选中");
+        JButton button_1 = new JButton("刷新表格");
         button_1.setFont(new Font("微软雅黑", Font.PLAIN, 15));
-        button_1.addActionListener(e -> table.clearSelection());
+        button_1.addActionListener(e -> {
+            table.clearSelection();
+            table.updateUI();
+        });
         button_1.setBounds(230, 364, 95, 23);
         contentPane.add(button_1);
 
@@ -98,22 +101,12 @@ public class CheckStudent extends MyWindow
         JButton button_2 = new JButton("注销账户");
         button_2.setFont(new Font("微软雅黑", Font.PLAIN, 15));
         button_2.addActionListener(e -> {
-            new Login();
+            WindowCache.showWindow("login");
             setVisible(false);
         });
         button_2.setBounds(430, 364, 95, 23);
         contentPane.add(button_2);
 
-        setVisible(true);
-
-    }
-
-    public CheckStudent(Student student)
-    {
-        initialWindow("学生信息", "学生信息", new int[]{238, 10, 173, 45});
-        JTable table = new JTable(new MyTableModel(student));
-        table.setAutoCreateRowSorter(true);// 排序
-        initTable(table);
     }
 
 }

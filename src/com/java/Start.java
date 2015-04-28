@@ -1,6 +1,6 @@
 package com.java;
 
-import com.java.Windows.Login;
+import com.java.tools.WindowCache;
 
 /**
  * <p>
@@ -9,12 +9,11 @@ import com.java.Windows.Login;
  *
  * @author XuDing
  * @version 1.0
- * @date 2015/4/25
  */
 public class Start
 {
-	public static void main(String[] args)
-	{
-		new Login();
-	}
+    public static void main(String[] args)
+    {
+        WindowCache.showWindow("login");
+    }
 }
