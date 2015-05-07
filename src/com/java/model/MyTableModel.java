@@ -51,23 +51,23 @@ public class MyTableModel extends AbstractTableModel
     //set the value of what you are editing.
     public void setValueAt(Object value, int row, int col)
     {
-        Student s = studentsData.get(row);
+        Student student = studentsData.get(row);
         switch (col)
         {
             case 0:
-                s.setId((String) value);
+                student.setId((String) value);
                 break;
             case 1:
-                s.setName((String) value);
+                student.setName((String) value);
                 break;
             case 2:
-                s.setSex((String) value);
+                student.setSex((String) value);
                 break;
             case 3:
-                s.setNativePlace((String) value);
+                student.setNativePlace((String) value);
                 break;
             case 4:
-                s.setBirthday((String) value);
+                student.setBirthday((String) value);
                 break;
             default:
                 break;
