@@ -17,7 +17,6 @@ public class Student
 	private String id;
 	private String sex;
 
-	/* constructor */
 	public Student()
 	{
 		this("2014011176", "王晓明", "男", "河北", "1996.1.1");
@@ -42,7 +41,6 @@ public class Student
 		return id;
 	}
 
-	/* getter and setter */
 	public String getName()
 	{
 		return name;
