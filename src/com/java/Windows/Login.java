@@ -25,8 +25,7 @@ public class Login extends MyWindow
         MyTextField textField = new MyTextField(Strings.ID, 227, 122, 192, 29);
         contentPane.add(textField);
 
-        JPasswordField passwordField = new JPasswordField();
-        passwordField.setText(String.valueOf(Strings.PASSWORD));
+        JPasswordField passwordField = new JPasswordField(Strings.PASSWORD);
         passwordField.setBounds(227, 195, 192, 29);
         contentPane.add(passwordField);
 
@@ -38,7 +37,8 @@ public class Login extends MyWindow
             {
                 {
                     String id = textField.getText();
-                    String password = new String(passwordField.getPassword());
+                    String password = passwordField.getText();
+
                     loginConfirm(id, password);
                 }
             }
@@ -48,7 +48,7 @@ public class Login extends MyWindow
 
     public void loginConfirm(String id, String password)
     {
-        if (id.equals(Strings.ID) && password.equals(new String(Strings.PASSWORD)))
+        if (id.equals(Strings.ID) && password.equals(Strings.PASSWORD))
         {
             WindowCache.showWindow("home_page");
             setVisible(false);

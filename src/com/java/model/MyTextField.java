@@ -18,5 +18,8 @@ public class MyTextField extends JTextField
     {
         setText(text);
         setBounds(x, y, width, height);
+
     }
 }
+
+
