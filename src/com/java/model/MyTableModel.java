@@ -1,6 +1,6 @@
 package com.java.model;
 
-import com.java.Data.Data;
+import com.java.data.Data;
 
 import javax.swing.table.AbstractTableModel;
 /**

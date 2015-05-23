@@ -1,7 +1,6 @@
-package com.java.Windows;
+package com.java.windows;
 
-import com.java.Container.WindowCache;
-import com.java.Data.Data;
+import com.java.data.Data;
 import com.java.model.MyButton;
 import com.java.model.MyButtonPanel;
 import com.java.model.MyDialog;
@@ -9,6 +8,7 @@ import com.java.model.MyLabel;
 import com.java.model.MyTextField;
 import com.java.model.MyWindow;
 import com.java.model.Student;
+import com.java.utils.WindowCache;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

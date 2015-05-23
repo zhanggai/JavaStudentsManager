@@ -1,9 +1,9 @@
-package com.java.Windows;
+package com.java.windows;
 
-import com.java.Container.WindowCache;
 import com.java.model.MyButton;
 import com.java.model.MyLabel;
 import com.java.model.MyWindow;
+import com.java.utils.WindowCache;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

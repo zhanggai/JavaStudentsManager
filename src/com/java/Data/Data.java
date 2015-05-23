@@ -1,4 +1,4 @@
-package com.java.Data;
+package com.java.data;
 
 import com.java.model.Student;
 

@@ -1,6 +1,6 @@
 package com.java.model;
 
-import com.java.Container.Strings;
+import com.java.utils.Strings;
 
 import java.awt.Font;
 import java.awt.Toolkit;
