@@ -4,10 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 /**
  * <p>Description:To load JDBC driver</p>
@@ -66,6 +68,9 @@ public class JDBCutils
         }
     }
 
+    /**
+     * @return a object of connection
+     */
     public Connection getConnection()
     {
         try
@@ -81,6 +86,8 @@ public class JDBCutils
     }
 
     /**
+     * add data to database
+     *
      * @param sql   the sql statement prepared to act
      * @param value the value prepared to change
      * @return if the line quantity be changed > 0
@@ -92,7 +99,6 @@ public class JDBCutils
         int index = 1;
         if (value != null && !value.isEmpty())
         {
-
             for (Object aValue : value)
             {
                 prestmt.setObject(index++, aValue);
@@ -100,5 +106,95 @@ public class JDBCutils
 
         }
         return prestmt.executeUpdate() > 0;
+    }
+
+    /**
+     * to query one line data
+     *
+     * @param sql   the sql statement prepared to act
+     * @param value the value prepared to change
+     * @return one line data by map
+     * @throws SQLException
+     */
+    public Map<String, Object> findSimpleResult(String sql, List<Object> value) throws SQLException
+    {
+        Map<String, Object> map = new HashMap<String, Object>();
+        int index = 1;
+        //get sql statement from input
+        prestmt = connection.prepareStatement(sql);
+        //set params of sql
+        if (value != null && !value.isEmpty())
+        {
+
+            for (Object aValue : value)
+            {
+                prestmt.setObject(index++, aValue);
+            }
+        }
+        //get the data of database
+        resultset = prestmt.executeQuery();
+        //get the column information
+        ResultSetMetaData col_data = resultset.getMetaData();
+        //get the column count
+        int col_count = col_data.getColumnCount();
+        //get the column and column's value and then put into HashMap
+        while (resultset.next())
+        {
+            for (int i = 0; i < col_count; i++)
+            {
+                String cols_name = col_data.getColumnName(i + 1);
+                Object cols_value = resultset.getObject(cols_name);
+                if (cols_value == null)
+                {
+                    cols_value = "";
+                }
+                map.put(cols_name, cols_value);
+            }
+        }
+        return map;
+    }
+
+    /**
+     * to query more line data
+     *
+     * @param sql   the sql statement prepared to act
+     * @param value the value prepared to change
+     * @return more line data by list
+     * @throws SQLException
+     */
+    public List<HashMap<String, Object>> findMoreResult(String sql, List<Object> value) throws SQLException
+    {
+        ArrayList<HashMap<String, Object>> list = new ArrayList<>();
+        int index = 1;
+        prestmt = connection.prepareStatement(sql);
+        if (value != null && !value.isEmpty())
+        {
+
+            for (Object aValue : value)
+            {
+                prestmt.setObject(index++, aValue);
+            }
+        }
+        prestmt.executeQuery();
+        resultset = prestmt.getResultSet();
+        ResultSetMetaData col_data = resultset.getMetaData();
+        int col_count = col_data.getColumnCount();
+        while (resultset.next())
+        {
+            HashMap<String, Object> map = new HashMap<>();
+            for (int i = 0; i < col_count; i++)
+            {
+                String cols_name = col_data.getColumnName(i + 1);
+                Object cols_value = resultset.getObject(cols_name);
+                if (cols_value == null)
+                {
+                    cols_value = "";
+                }
+                map.put(cols_name, cols_value);
+            }
+            list.add(map);
+
+        }
+        return list;
     }
 }
