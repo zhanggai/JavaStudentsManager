@@ -50,22 +50,35 @@ public class JDBCutils
     {
         JDBCutils dbutil = new JDBCutils();
         dbutil.getConnection();
-        String sql = "insert into information(姓名,性别,籍贯,出生年月) values(?,?,?,?)";
-        List<Object> values = new ArrayList<>();
-
-        values.add("徐鼎");
-        values.add("男");
-        values.add("新疆维吾尔族自治区");
-        values.add("1996-05-06");
-
-        try
-        {
-            boolean flag = dbutil.updateByPrepareStatement(sql, values);
-            System.out.println(flag);
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
+        //        查询一条记录
+        //        String sql = "select * from information where 学号 = ? ";
+        //        List<Object> values = new ArrayList<>();
+        //        values.add(2014011005);
+        //        try
+        //        {
+        //            Map<String,Object> map=dbutil.findSimpleResult(sql, values);
+        //            System.out.println(map);
+        //        } catch (SQLException e)
+        //        {
+        //            e.printStackTrace();
+        //        }
+        //        增加一条记录
+        //        String sql = "insert into information(姓名,性别,籍贯,出生年月) values(?,?,?,?)";
+        //        List<Object> values = new ArrayList<>();
+        //
+        //        values.add("徐鼎");
+        //        values.add("男");
+        //        values.add("新疆维吾尔族自治区");
+        //        values.add("1996-05-06");
+        //
+        //        try
+        //        {
+        //            boolean flag = dbutil.updateByPrepareStatement(sql, values);
+        //            System.out.println(flag);
+        //        } catch (SQLException e)
+        //        {
+        //            e.printStackTrace();
+        //        }
     }
 
     /**
