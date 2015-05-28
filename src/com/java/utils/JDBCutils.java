@@ -1,5 +1,8 @@
 package com.java.utils;
 
+import com.java.model.Information;
+
+import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -46,39 +49,69 @@ public class JDBCutils
         }
     }
 
+    //    测试函数
     public static void main(String[] args)
     {
         JDBCutils dbutil = new JDBCutils();
         dbutil.getConnection();
-        //        查询一条记录
-        //        String sql = "select * from information where 学号 = ? ";
-        //        List<Object> values = new ArrayList<>();
-        //        values.add(2014011005);
-        //        try
-        //        {
-        //            Map<String,Object> map=dbutil.findSimpleResult(sql, values);
-        //            System.out.println(map);
-        //        } catch (SQLException e)
-        //        {
-        //            e.printStackTrace();
-        //        }
-        //        增加一条记录
-        //        String sql = "insert into information(姓名,性别,籍贯,出生年月) values(?,?,?,?)";
-        //        List<Object> values = new ArrayList<>();
+        //                  利用反射机制查询多条记录
+        String sql = "select * from information";
+        try
+        {
+            List<Information> list = dbutil.findMoreRefResult(sql, null, Information.class);
+            System.out.println(list);
+        } catch (Exception e)
+        {
+            // TODO: handle exception
+        } finally
+        {
+            dbutil.closeConnection();
+        }
+
+        //          查询多条记录
+        //                String sql = "select * from information";
+        //                try
+        //                {
+        //                    List<HashMap<String, Object>> list=dbutil.findMoreResult(sql, null);
         //
-        //        values.add("徐鼎");
-        //        values.add("男");
-        //        values.add("新疆维吾尔族自治区");
-        //        values.add("1996-05-06");
+        //                    System.out.println(list);
+        //                } catch (SQLException e)
+        //                {
+        //                    e.printStackTrace();
+        //                }finally
+        //                {
+        //                    dbutil.closeConnection();
+        //                }
+
+        //                查询一条记录
+        //                String sql = "select * from information where 学号 = ? ";
+        //                List<Object> values = new ArrayList<>();
+        //                values.add(2014011005);
+        //                try
+        //                {
+        //                    Map<String,Object> map=dbutil.findSimpleResult(sql, values);
+        //                    System.out.println(map);
+        //                } catch (SQLException e)
+        //                {
+        //                    e.printStackTrace();
+        //                }
+        //                增加一条记录
+        //                String sql = "insert into information(姓名,性别,籍贯,出生年月) values(?,?,?,?)";
+        //                List<Object> values = new ArrayList<>();
         //
-        //        try
-        //        {
-        //            boolean flag = dbutil.updateByPrepareStatement(sql, values);
-        //            System.out.println(flag);
-        //        } catch (SQLException e)
-        //        {
-        //            e.printStackTrace();
-        //        }
+        //                values.add("徐鼎");
+        //                values.add("男");
+        //                values.add("新疆维吾尔族自治区");
+        //                values.add("1996-05-06");
+        //
+        //                try
+        //                {
+        //                    boolean flag = dbutil.updateByPrepareStatement(sql, values);
+        //                    System.out.println(flag);
+        //                } catch (SQLException e)
+        //                {
+        //                    e.printStackTrace();
+        //                }
     }
 
     /**
@@ -96,6 +129,97 @@ public class JDBCutils
         }
         System.out.println("连接数据库成功");
         return connection;
+    }
+
+    /**
+     * 通过反射机制访问数据库
+     *
+     * @param <T>
+     * @param sql
+     * @param value
+     * @param cls
+     * @return
+     * @throws Exception
+     */
+    public <T> List<T> findMoreRefResult(String sql, List<Object> value, Class<T> cls) throws Exception
+    {
+        List<T> list = new ArrayList<T>();
+        int index = 1;
+        prestmt = connection.prepareStatement(sql);
+        if (value != null && !value.isEmpty())
+        {
+            for (Object aValue : value)
+            {
+                prestmt.setObject(index++, aValue);
+            }
+        }
+        resultset = prestmt.executeQuery();
+
+        ResultSetMetaData metaData = resultset.getMetaData();
+        int cols_len = metaData.getColumnCount();
+
+        while (resultset.next())
+        {
+
+            T resultObject = cls.newInstance();
+
+            for (int i = 0; i < cols_len; i++)
+            {
+                String cols_name = metaData.getColumnName(i + 1);
+                Object cols_value = resultset.getObject(cols_name);
+                if (cols_value == null)
+                {
+                    cols_value = "";
+                }
+
+                Field field = cls.getDeclaredField(cols_name);
+
+                field.setAccessible(true);
+                System.out.println("在这里还在运行" + resultObject + field + cols_name + cols_value);
+
+                field.set(resultObject, cols_value);
+
+                System.out.println("为什么到了这里就直接结束了");
+            }
+
+            list.add(resultObject);
+            System.out.println("这是个" + resultObject + "到这就不运行了");
+        }
+        return list;
+    }
+
+    public void closeConnection()
+    {
+        if (resultset != null)
+        {
+            try
+            {
+                resultset.close();
+            } catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        if (prestmt != null)
+        {
+            try
+            {
+                prestmt.close();
+            } catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        if (connection != null)
+        {
+            try
+            {
+                connection.close();
+            } catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -209,5 +333,41 @@ public class JDBCutils
 
         }
         return list;
+    }
+
+    // jdbc的封装可以用反射机制来封装：
+    public <T> T findSimpleRefResult(String sql, List<Object> value, Class<T> cls) throws Exception
+    {
+        T resultObject = null;
+        int index = 1;
+        prestmt = connection.prepareStatement(sql);
+        if (value != null && !value.isEmpty())
+        {
+            for (Object aValue : value)
+            {
+                prestmt.setObject(index++, aValue);
+            }
+        }
+        resultset = prestmt.executeQuery();
+        ResultSetMetaData metaData = resultset.getMetaData();
+        int cols_len = metaData.getColumnCount();
+        while (resultset.next())
+        {
+            // 通过反射机制创建实例
+            resultObject = cls.newInstance();
+            for (int i = 0; i < cols_len; i++)
+            {
+                String cols_name = metaData.getColumnName(i + 1);
+                Object cols_value = resultset.getObject(cols_name);
+                if (cols_value == null)
+                {
+                    cols_value = "";
+                }
+                Field field = cls.getDeclaredField(cols_name);
+                field.setAccessible(true);// 打开javabean的访问private权限
+                field.set(resultObject, cols_value);
+            }
+        }
+        return resultObject;
     }
 }
