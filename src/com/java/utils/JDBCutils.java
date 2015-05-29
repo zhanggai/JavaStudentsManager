@@ -54,7 +54,7 @@ public class JDBCutils
     {
         JDBCutils dbutil = new JDBCutils();
         dbutil.getConnection();
-        //                  利用反射机制查询多条记录
+        //                         利用反射机制查询多条记录
         String sql = "select * from information";
         try
         {
@@ -67,6 +67,19 @@ public class JDBCutils
         {
             dbutil.closeConnection();
         }
+
+        //                利用反射机制查询一条记录
+        //        String sql = "select * from information where id = ? ";
+        //        List<Object> values = new ArrayList<>();
+        //        values.add(2014011003);
+        //
+        //        try
+        //        {
+        //            System.out.println(dbutil.findSimpleRefResult(sql, values, Information.class));
+        //        } catch (Exception e)
+        //        {
+        //            e.printStackTrace();
+        //        }
 
         //          查询多条记录
         //                String sql = "select * from information";
@@ -175,15 +188,17 @@ public class JDBCutils
                 Field field = cls.getDeclaredField(cols_name);
 
                 field.setAccessible(true);
-                System.out.println("在这里还在运行" + resultObject + field + cols_name + cols_value);
+                try
+                {
+                    field.set(resultObject, cols_value);
+                } catch (IllegalArgumentException e)
+                {
+                    System.out.println(e);
+                }
 
-                field.set(resultObject, cols_value);
-
-                System.out.println("为什么到了这里就直接结束了");
             }
-
             list.add(resultObject);
-            System.out.println("这是个" + resultObject + "到这就不运行了");
+
         }
         return list;
     }
@@ -365,7 +380,13 @@ public class JDBCutils
                 }
                 Field field = cls.getDeclaredField(cols_name);
                 field.setAccessible(true);// 打开javabean的访问private权限
-                field.set(resultObject, cols_value);
+                try
+                {
+                    field.set(resultObject, cols_value);
+                } catch (IllegalArgumentException e)
+                {
+                    System.out.println(e);
+                }
             }
         }
         return resultObject;
