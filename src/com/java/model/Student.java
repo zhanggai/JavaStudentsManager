@@ -1,5 +1,6 @@
 package com.java.model;
 
+import java.io.Serializable;
 /**
  * <p>
  * Description:Students
@@ -9,8 +10,12 @@ package com.java.model;
  * @version 1.0
  * @date 2015/4/21
  */
-public class Student
+public class Student implements Serializable
 {
+
+	//	设置序列化id防止随着jdk的版本变化而出现异常
+	private static final long serialVersionUID = 1L;
+
 	private String name;
 	private String birthday;
 	private String nativePlace;
@@ -29,6 +34,23 @@ public class Student
 		this.nativePlace = nativePlace;
 		this.id = id;
 		this.sex = sex;
+	}
+
+	public static long getSerialVersionUID()
+	{
+		return serialVersionUID;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "Student{" +
+				"name='" + name + '\'' +
+				", birthday='" + birthday + '\'' +
+				", nativePlace='" + nativePlace + '\'' +
+				", id='" + id + '\'' +
+				", sex='" + sex + '\'' +
+				'}';
 	}
 
 	public Object[] getData()

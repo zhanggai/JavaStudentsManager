@@ -1,5 +1,7 @@
 package com.java.utils;
 
+import com.java.model.Student;
+
 import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -51,41 +53,27 @@ public class JDBCutils
     /**
      * @return a object of connection
      */
-    public Connection getConnection() {
-        try {
+    public Connection getConnection()
+    {
+        try
+        {
             //connect to database
             connection = DriverManager.getConnection(DBURL, USERNAME, PASSWORD);
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             e.printStackTrace();
         }
         System.out.println("连接数据库成功");
         return connection;
     }
 
-    //    测试函数
     public static void main(String[] args)
     {
-        JDBCutils dbutil = new JDBCutils();
-        dbutil.getConnection();
-/*
-                                 利用反射机制查询多条记录
-        String sql = "select * from information";
-        try
-        {
-            List<Information> list = dbutil.findMoreRefResult(sql, null, Information.class);
-            System.out.println(list);
-        } catch (Exception e)
-        {
-            // TODO: handle exception
-        } finally
-        {
-            dbutil.closeConnection();
-        }
-*/
+        JDBCutils.getData();
 
 /*
                         利用反射机制查询一条记录
-                String sql = "select * from information where id = ? ";
+                String sql = "select * from student where id = ? ";
                 List<Object> values = new ArrayList<>();
                 values.add(2014011003);
 
@@ -98,9 +86,9 @@ public class JDBCutils
                 }
 */
 
+        //                  普通方法查询多条记录
 /*
-                  普通方法查询多条记录
-                        String sql = "select * from information";
+                        String sql = "select * from student";
                         try
                         {
                             List<HashMap<String, Object>> list=dbutil.findMoreResult(sql, null);
@@ -116,8 +104,8 @@ public class JDBCutils
 */
 
 /*
-                        普通方法查询一条记录
-                        String sql = "select * from information where 学号 = ? ";
+                       普通方法查询一条记录
+                        String sql = "select * from student where 学号 = ? ";
                         List<Object> values = new ArrayList<>();
                         values.add(2014011005);
                         try
@@ -131,7 +119,7 @@ public class JDBCutils
 */
 /*
                         普通方法增加一条记录
-                        String sql = "insert into information(姓名,性别,籍贯,出生年月) values(?,?,?,?)";
+                        String sql = "insert into student(姓名,性别,籍贯,出生年月) values(?,?,?,?)";
                         List<Object> values = new ArrayList<>();
 
                         values.add("徐鼎");
@@ -148,6 +136,26 @@ public class JDBCutils
                             e.printStackTrace();
                         }
 */
+    }
+
+    //     利用反射机制查询多条记录
+    public static List<Student> getData()
+    {
+        JDBCutils dbutil = new JDBCutils();
+        List<Student> list = null;
+        String sql = "select * from student";
+        try
+        {
+            list = dbutil.findMoreRefResult(sql, null, Student.class);
+            System.out.println(list);
+        } catch (Exception e)
+        {
+            // TODO: handle exception
+        } finally
+        {
+            dbutil.closeConnection();
+        }
+        return list;
     }
 
     /**
@@ -199,7 +207,7 @@ public class JDBCutils
                     field.set(resultObject, cols_value);
                 } catch (IllegalArgumentException e)
                 {
-                    System.out.println(e);
+                    //TODO
                 }
 
             }

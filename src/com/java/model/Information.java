@@ -1,15 +1,21 @@
+/*
 package com.java.model;
 
+import java.io.Serializable;
+*/
 /**
  * <p>Description: </p>
  *
  * @author XuDing
  * @version 1.0
- */
-public class Information
+ *//*
+
+public class Information implements Serializable
 {
+//    为何要用serialVersionUID
     private static final long serialVersionUID = 1L;
-    private int id;
+
+    private String id;
     private String name;
     private String sex;
     private String nativePlace;
@@ -28,7 +34,7 @@ public class Information
     @Override
     public String toString()
     {
-        return "哈哈Information{" +
+        return "Information{" +
                 "name='" + name + '\'' +
                 ", birthday='" + birthday + '\'' +
                 ", nativePlace='" + nativePlace + '\'' +
@@ -67,12 +73,12 @@ public class Information
         this.nativePlace = nativePlace;
     }
 
-    public int getId()
+    public String getId()
     {
         return id;
     }
 
-    public void setId(int id)
+    public void setId(String id)
     {
         this.id = id;
     }
@@ -88,3 +94,4 @@ public class Information
     }
 
 }
+*/
