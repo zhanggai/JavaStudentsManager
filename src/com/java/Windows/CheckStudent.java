@@ -21,7 +21,7 @@ public class CheckStudent extends MyWindow
     {
         initialWindow("学生信息", "学生信息", new int[]{238, 10, 173, 45});
         JTable table = new JTable(new MyTableModel());
-        table.setAutoCreateRowSorter(true);// sort
+        table.setAutoCreateRowSorter(true);//添加排序功能
         initPane(table);
         initButton(table);
     }

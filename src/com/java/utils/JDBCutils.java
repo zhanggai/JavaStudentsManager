@@ -1,7 +1,5 @@
 package com.java.utils;
 
-import com.java.model.Information;
-
 import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -47,6 +45,21 @@ public class JDBCutils
         {
             e.printStackTrace();
         }
+        getConnection();
+    }
+
+    /**
+     * @return a object of connection
+     */
+    public Connection getConnection() {
+        try {
+            //connect to database
+            connection = DriverManager.getConnection(DBURL, USERNAME, PASSWORD);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("连接数据库成功");
+        return connection;
     }
 
     //    测试函数
@@ -54,7 +67,8 @@ public class JDBCutils
     {
         JDBCutils dbutil = new JDBCutils();
         dbutil.getConnection();
-        //                         利用反射机制查询多条记录
+/*
+                                 利用反射机制查询多条记录
         String sql = "select * from information";
         try
         {
@@ -67,81 +81,73 @@ public class JDBCutils
         {
             dbutil.closeConnection();
         }
+*/
 
-        //                利用反射机制查询一条记录
-        //        String sql = "select * from information where id = ? ";
-        //        List<Object> values = new ArrayList<>();
-        //        values.add(2014011003);
-        //
-        //        try
-        //        {
-        //            System.out.println(dbutil.findSimpleRefResult(sql, values, Information.class));
-        //        } catch (Exception e)
-        //        {
-        //            e.printStackTrace();
-        //        }
+/*
+                        利用反射机制查询一条记录
+                String sql = "select * from information where id = ? ";
+                List<Object> values = new ArrayList<>();
+                values.add(2014011003);
 
-        //          查询多条记录
-        //                String sql = "select * from information";
-        //                try
-        //                {
-        //                    List<HashMap<String, Object>> list=dbutil.findMoreResult(sql, null);
-        //
-        //                    System.out.println(list);
-        //                } catch (SQLException e)
-        //                {
-        //                    e.printStackTrace();
-        //                }finally
-        //                {
-        //                    dbutil.closeConnection();
-        //                }
+                try
+                {
+                    System.out.println(dbutil.findSimpleRefResult(sql, values, Information.class));
+                } catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+*/
 
-        //                查询一条记录
-        //                String sql = "select * from information where 学号 = ? ";
-        //                List<Object> values = new ArrayList<>();
-        //                values.add(2014011005);
-        //                try
-        //                {
-        //                    Map<String,Object> map=dbutil.findSimpleResult(sql, values);
-        //                    System.out.println(map);
-        //                } catch (SQLException e)
-        //                {
-        //                    e.printStackTrace();
-        //                }
-        //                增加一条记录
-        //                String sql = "insert into information(姓名,性别,籍贯,出生年月) values(?,?,?,?)";
-        //                List<Object> values = new ArrayList<>();
-        //
-        //                values.add("徐鼎");
-        //                values.add("男");
-        //                values.add("新疆维吾尔族自治区");
-        //                values.add("1996-05-06");
-        //
-        //                try
-        //                {
-        //                    boolean flag = dbutil.updateByPrepareStatement(sql, values);
-        //                    System.out.println(flag);
-        //                } catch (SQLException e)
-        //                {
-        //                    e.printStackTrace();
-        //                }
-    }
+/*
+                  普通方法查询多条记录
+                        String sql = "select * from information";
+                        try
+                        {
+                            List<HashMap<String, Object>> list=dbutil.findMoreResult(sql, null);
 
-    /**
-     * @return a object of connection
-     */
-    public Connection getConnection()
-    {
-        try
-        {
-            //connect to database
-            connection = DriverManager.getConnection(DBURL, USERNAME, PASSWORD);
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-        System.out.println("连接数据库成功");
-        return connection;
+                            System.out.println(list);
+                        } catch (SQLException e)
+                        {
+                            e.printStackTrace();
+                        }finally
+                        {
+                            dbutil.closeConnection();
+                        }
+*/
+
+/*
+                        普通方法查询一条记录
+                        String sql = "select * from information where 学号 = ? ";
+                        List<Object> values = new ArrayList<>();
+                        values.add(2014011005);
+                        try
+                        {
+                            Map<String,Object> map=dbutil.findSimpleResult(sql, values);
+                            System.out.println(map);
+                        } catch (SQLException e)
+                        {
+                            e.printStackTrace();
+                        }
+*/
+/*
+                        普通方法增加一条记录
+                        String sql = "insert into information(姓名,性别,籍贯,出生年月) values(?,?,?,?)";
+                        List<Object> values = new ArrayList<>();
+
+                        values.add("徐鼎");
+                        values.add("男");
+                        values.add("新疆维吾尔族自治区");
+                        values.add("1996-05-06");
+
+                        try
+                        {
+                            boolean flag = dbutil.updateByPrepareStatement(sql, values);
+                            System.out.println(flag);
+                        } catch (SQLException e)
+                        {
+                            e.printStackTrace();
+                        }
+*/
     }
 
     /**

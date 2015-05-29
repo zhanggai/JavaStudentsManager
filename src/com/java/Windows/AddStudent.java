@@ -59,13 +59,17 @@ public class AddStudent extends MyWindow
         });
         contentPane.add(button_ensure);
         MyButton button_cancel = new MyButton("取消", 18, 358, 371, 81, 30);
-        button_cancel.addActionListener(e -> {
-            WindowCache.showWindow("home_page");
-            setVisible(false);
+        button_cancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                WindowCache.showWindow("home_page");
+                setVisible(false);
+            }
         });
         contentPane.add(button_cancel);
     }
-
+//   初始化性别选项
     private void initButtonPanel(MyButtonPanel button_panel)
     {
         ButtonGroup radio_group = new ButtonGroup();
@@ -93,7 +97,7 @@ public class AddStudent extends MyWindow
             }
         });
     }
-
+//        使用正则表达式对输入进行验证
     private boolean checkInput(String num, String name, String location, String birth)
     {
         boolean flag = false;
@@ -106,9 +110,9 @@ public class AddStudent extends MyWindow
         } else if (!location.matches("[\\u4E00-\\u9FA5]{2,5}"))
         {
             MyDialog.show("请填写正确的籍贯！");
-        } else if (!birth.matches("[1][9][0-9]{2}[/.]([0][1-9]|[1][0-2])[/.]([0][1-9]|[1][0-9]|[2][0-9]|[3][0-1])"))
+        } else if (!birth.matches("[1][9][0-9]{2}[/-]([0][1-9]|[1][0-2])[/-]([0][1-9]|[1][0-9]|[2][0-9]|[3][0-1])"))
         {
-            MyDialog.show("请填写正确的出生年月！如1996.01.01");
+            MyDialog.show("请填写正确的出生年月！如1996-01-01");
         } else flag = true;
 
         return flag;

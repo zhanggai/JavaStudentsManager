@@ -43,6 +43,13 @@ public class Data extends ArrayList<Student>
 
     }
 
+//    ceshi
+public static void main(String[] args)
+{
+    Data data1 = Data.getData();
+
+}
+
     public static Data getData()
     {
         if (data == null)
