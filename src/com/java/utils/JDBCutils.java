@@ -67,78 +67,79 @@ public class JDBCutils
         return connection;
     }
 
-    public static void main(String[] args)
-    {
-        JDBCutils.getData();
-
-/*
-                        利用反射机制查询一条记录
-                String sql = "select * from student where id = ? ";
-                List<Object> values = new ArrayList<>();
-                values.add(2014011003);
-
-                try
-                {
-                    System.out.println(dbutil.findSimpleRefResult(sql, values, Information.class));
-                } catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-*/
-
-        //                  普通方法查询多条记录
-/*
-                        String sql = "select * from student";
-                        try
-                        {
-                            List<HashMap<String, Object>> list=dbutil.findMoreResult(sql, null);
-
-                            System.out.println(list);
-                        } catch (SQLException e)
-                        {
-                            e.printStackTrace();
-                        }finally
-                        {
-                            dbutil.closeConnection();
-                        }
-*/
-
-/*
-                       普通方法查询一条记录
-                        String sql = "select * from student where 学号 = ? ";
-                        List<Object> values = new ArrayList<>();
-                        values.add(2014011005);
-                        try
-                        {
-                            Map<String,Object> map=dbutil.findSimpleResult(sql, values);
-                            System.out.println(map);
-                        } catch (SQLException e)
-                        {
-                            e.printStackTrace();
-                        }
-*/
-/*
-                        普通方法增加一条记录
-                        String sql = "insert into student(姓名,性别,籍贯,出生年月) values(?,?,?,?)";
-                        List<Object> values = new ArrayList<>();
-
-                        values.add("徐鼎");
-                        values.add("男");
-                        values.add("新疆维吾尔族自治区");
-                        values.add("1996-05-06");
-
-                        try
-                        {
-                            boolean flag = dbutil.updateByPrepareStatement(sql, values);
-                            System.out.println(flag);
-                        } catch (SQLException e)
-                        {
-                            e.printStackTrace();
-                        }
-*/
-    }
+    //    public static void main(String[] args)
+    //    {
+    //        JDBCutils.getData();
+    //
+    ///*
+    //                        利用反射机制查询一条记录
+    //                String sql = "select * from student where id = ? ";
+    //                List<Object> values = new ArrayList<>();
+    //                values.add(2014011003);
+    //
+    //                try
+    //                {
+    //                    System.out.println(dbutil.findSimpleRefResult(sql, values, Information.class));
+    //                } catch (Exception e)
+    //                {
+    //                    e.printStackTrace();
+    //                }
+    //*/
+    //
+    //        //                  普通方法查询多条记录
+    ///*
+    //                        String sql = "select * from student";
+    //                        try
+    //                        {
+    //                            List<HashMap<String, Object>> list=dbutil.findMoreResult(sql, null);
+    //
+    //                            System.out.println(list);
+    //                        } catch (SQLException e)
+    //                        {
+    //                            e.printStackTrace();
+    //                        }finally
+    //                        {
+    //                            dbutil.closeConnection();
+    //                        }
+    //*/
+    //
+    ///*
+    //                       普通方法查询一条记录
+    //                        String sql = "select * from student where 学号 = ? ";
+    //                        List<Object> values = new ArrayList<>();
+    //                        values.add(2014011005);
+    //                        try
+    //                        {
+    //                            Map<String,Object> map=dbutil.findSimpleResult(sql, values);
+    //                            System.out.println(map);
+    //                        } catch (SQLException e)
+    //                        {
+    //                            e.printStackTrace();
+    //                        }
+    //*/
+    ///*
+    //                        普通方法增加一条记录
+    //                        String sql = "insert into student(姓名,性别,籍贯,出生年月) values(?,?,?,?)";
+    //                        List<Object> values = new ArrayList<>();
+    //
+    //                        values.add("徐鼎");
+    //                        values.add("男");
+    //                        values.add("新疆维吾尔族自治区");
+    //                        values.add("1996-05-06");
+    //
+    //                        try
+    //                        {
+    //                            boolean flag = dbutil.updateByPrepareStatement(sql, values);
+    //                            System.out.println(flag);
+    //                        } catch (SQLException e)
+    //                        {
+    //                            e.printStackTrace();
+    //                        }
+    //*/
+    //    }
 
     //     利用反射机制查询多条记录
+    //    public static List<Student> getData()
     public static List<Student> getData()
     {
         JDBCutils dbutil = new JDBCutils();
@@ -147,7 +148,6 @@ public class JDBCutils
         try
         {
             list = dbutil.findMoreRefResult(sql, null, Student.class);
-            System.out.println(list);
         } catch (Exception e)
         {
             // TODO: handle exception
