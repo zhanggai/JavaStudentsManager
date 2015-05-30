@@ -31,11 +31,6 @@ public class WindowCache
     {
         windowMap.get(key).setVisible(true);
     }
-
-    /*public static MyWindow getWindow(String key)
-    {
-        return windowMap.get(key);
-    }*/
 }
 
 
