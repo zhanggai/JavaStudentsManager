@@ -8,6 +8,9 @@ import com.java.utils.WindowCache;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * 关于我们的界面
+ */
 public class AboutUs extends MyWindow {
     public AboutUs() {
         initialWindow("关于我们", "关于我们", new int[]{227, 27, 181, 55});

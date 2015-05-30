@@ -1,26 +1,22 @@
 package com.java.windows;
 
-import com.java.data.Data;
-import com.java.model.MyButton;
-import com.java.model.MyButtonPanel;
-import com.java.model.MyDialog;
-import com.java.model.MyLabel;
-import com.java.model.MyTextField;
-import com.java.model.MyWindow;
-import com.java.model.Student;
+import com.java.model.*;
+import com.java.utils.ConfirmInput;
+import com.java.utils.JDBCutils;
 import com.java.utils.WindowCache;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JRadioButton;
+/**
+ * 添加学生的界面
+ */
+public class AddStudent extends MyWindow {
+    private String sex="无";
 
-public class AddStudent extends MyWindow
-{
-    private String sex;
-    public AddStudent()
-    {
+    public AddStudent() {
         initialWindow("添加学生信息", "添加学生信息", new int[]{192, 24, 279, 55});
 
         contentPane.add(new MyLabel("学号：", 120));
@@ -49,29 +45,31 @@ public class AddStudent extends MyWindow
             String name = name_field.getText();
             String location = location_field.getText();
             String birth = birth_field.getText();
-            if (checkInput(num, name, location, birth))
-            {
-                Student student = new Student(num, name, sex, location, birth);
-                Data.getData().add(student);
-                WindowCache.showWindow("check_student");
+            if (ConfirmInput.checkInput(num, name,sex, location, birth)) {
+
+                JDBCutils.addAStudent(num, name, sex, location, birth);
+
+                MyTableModel.studentsData.add(JDBCutils.getAStudent(num));
+                WindowCache.showWindow("show_student");
                 setVisible(false);
+
             }
+
         });
         contentPane.add(button_ensure);
         MyButton button_cancel = new MyButton("取消", 18, 358, 371, 81, 30);
         button_cancel.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e)
-            {
+            public void actionPerformed(ActionEvent e) {
                 WindowCache.showWindow("home_page");
                 setVisible(false);
             }
         });
         contentPane.add(button_cancel);
     }
-//   初始化性别选项
-    private void initButtonPanel(MyButtonPanel button_panel)
-    {
+
+    //   初始化性别选项
+    private void initButtonPanel(MyButtonPanel button_panel) {
         ButtonGroup radio_group = new ButtonGroup();
         JRadioButton male_button = new JRadioButton("男");
         JRadioButton female_button = new JRadioButton("女");
@@ -80,41 +78,19 @@ public class AddStudent extends MyWindow
         radio_group.add(male_button);
         radio_group.add(female_button);
 
-        male_button.addActionListener(new ActionListener()
-        {
+        male_button.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e)
-            {
+            public void actionPerformed(ActionEvent e) {
                 sex = "男";
             }
         });
-        female_button.addActionListener(new ActionListener()
-        {
+        female_button.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e)
-            {
+            public void actionPerformed(ActionEvent e) {
                 sex = "女";
             }
         });
     }
-//        使用正则表达式对输入进行验证
-    private boolean checkInput(String num, String name, String location, String birth)
-    {
-        boolean flag = false;
-        if (!num.matches("[0-9]{10}"))
-        {
-            MyDialog.show("学号为10位数字！");
-        } else if (!name.matches("[\\u4E00-\\u9FA5]{2,4}"))
-        {
-            MyDialog.show("请填写正确的姓名！");
-        } else if (!location.matches("[\\u4E00-\\u9FA5]{2,5}"))
-        {
-            MyDialog.show("请填写正确的籍贯！");
-        } else if (!birth.matches("[1][9][0-9]{2}[/-]([0][1-9]|[1][0-2])[/-]([0][1-9]|[1][0-9]|[2][0-9]|[3][0-1])"))
-        {
-            MyDialog.show("请填写正确的出生年月！如1996-01-01");
-        } else flag = true;
 
-        return flag;
-    }
+
 }
