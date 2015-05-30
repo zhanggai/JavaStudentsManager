@@ -3,16 +3,9 @@ package com.java.utils;
 import com.java.model.Student;
 
 import java.lang.reflect.Field;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>Description:To load JDBC driver</p>
@@ -50,98 +43,59 @@ public class JDBCutils
         getConnection();
     }
 
-    /**
-     * @return a object of connection
-     */
-    public Connection getConnection()
-    {
-        try
-        {
-            //connect to database
-            connection = DriverManager.getConnection(DBURL, USERNAME, PASSWORD);
-        } catch (SQLException e)
-        {
+    /* public static void main(String[] args)
+     {
+         //JDBCutils.getData();
+
+
+   //                      利用反射机制查询一条记录
+         *//*        String sql = "select * from student where id = ? ";
+                    List<Object> values = new ArrayList<>();
+                    values.add(2014011003);
+
+                    try
+                    {
+                        System.out.println(dbutil.findSimpleRefResult(sql, values, Information.class));
+                    } catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }*//*
+        }*/
+    //删除数据表中的一条学生数据
+    public static void deleteAStudent(String id) {
+        JDBCutils dbutil = new JDBCutils();
+        String sql = "delete from student where id=?";
+        List<Object> values = new ArrayList<>();
+        values.add(id);
+        try {
+            dbutil.deteleByPrepareStatement(sql, values);
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("连接数据库成功");
-        return connection;
+
     }
 
-    //    public static void main(String[] args)
-    //    {
-    //        JDBCutils.getData();
-    //
-    ///*
-    //                        利用反射机制查询一条记录
-    //                String sql = "select * from student where id = ? ";
-    //                List<Object> values = new ArrayList<>();
-    //                values.add(2014011003);
-    //
-    //                try
-    //                {
-    //                    System.out.println(dbutil.findSimpleRefResult(sql, values, Information.class));
-    //                } catch (Exception e)
-    //                {
-    //                    e.printStackTrace();
-    //                }
-    //*/
-    //
-    //        //                  普通方法查询多条记录
-    ///*
-    //                        String sql = "select * from student";
-    //                        try
-    //                        {
-    //                            List<HashMap<String, Object>> list=dbutil.findMoreResult(sql, null);
-    //
-    //                            System.out.println(list);
-    //                        } catch (SQLException e)
-    //                        {
-    //                            e.printStackTrace();
-    //                        }finally
-    //                        {
-    //                            dbutil.closeConnection();
-    //                        }
-    //*/
-    //
-    ///*
-    //                       普通方法查询一条记录
-    //                        String sql = "select * from student where 学号 = ? ";
-    //                        List<Object> values = new ArrayList<>();
-    //                        values.add(2014011005);
-    //                        try
-    //                        {
-    //                            Map<String,Object> map=dbutil.findSimpleResult(sql, values);
-    //                            System.out.println(map);
-    //                        } catch (SQLException e)
-    //                        {
-    //                            e.printStackTrace();
-    //                        }
-    //*/
-    ///*
-    //                        普通方法增加一条记录
-    //                        String sql = "insert into student(姓名,性别,籍贯,出生年月) values(?,?,?,?)";
-    //                        List<Object> values = new ArrayList<>();
-    //
-    //                        values.add("徐鼎");
-    //                        values.add("男");
-    //                        values.add("新疆维吾尔族自治区");
-    //                        values.add("1996-05-06");
-    //
-    //                        try
-    //                        {
-    //                            boolean flag = dbutil.updateByPrepareStatement(sql, values);
-    //                            System.out.println(flag);
-    //                        } catch (SQLException e)
-    //                        {
-    //                            e.printStackTrace();
-    //                        }
-    //*/
-    //    }
+    //增加一名学生的信息到数据表
+    public static void addAStudent(String id, String name, String sex, String nativePlace, String birth) {
+        JDBCutils dbutil = new JDBCutils();
+        String sql = "insert into student(id,name,sex,nativePlace,birthday) values(?,?,?,?,?)";
+        List<Object> values = new ArrayList<>();
+        values.add(id);
+        values.add(name);
+        values.add(sex);
+        values.add(nativePlace);
+        values.add(birth);
 
-    //     利用反射机制查询多条记录
-    //    public static List<Student> getData()
-    public static List<Student> getData()
-    {
+        try {
+            dbutil.updateByPrepareStatement(sql, values);
+            System.out.println("添加到数据库成功");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //以存放了Student对象的List的形式返回数据表中的所有数据
+    public static List<Student> getData() {
         JDBCutils dbutil = new JDBCutils();
         List<Student> list = null;
         String sql = "select * from student";
@@ -151,25 +105,57 @@ public class JDBCutils
         } catch (Exception e)
         {
             // TODO: handle exception
-        } finally
-        {
+        } finally {
             dbutil.closeConnection();
         }
         return list;
     }
 
     /**
-     * 通过反射机制访问数据库
-     *
-     * @param <T>
-     * @param sql
-     * @param value
-     * @param cls
-     * @return
-     * @throws Exception
+     * @return 获得数据库的连接
      */
-    public <T> List<T> findMoreRefResult(String sql, List<Object> value, Class<T> cls) throws Exception
-    {
+    public Connection getConnection() {
+        try
+        {
+//            注册驱动
+            connection = DriverManager.getConnection(DBURL, USERNAME, PASSWORD);
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        System.out.println("连接数据库成功");
+        return connection;
+    }
+
+    public void closeConnection() {
+        if (resultset != null)
+        {
+            try {
+//                关闭结果集合连接
+                resultset.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if (prestmt != null) {
+            try {
+//                关闭MySQL执行语句连接
+                prestmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if (connection != null) {
+            try {
+//                关闭数据库连接
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public <T> List<T> findMoreRefResult(String sql, List<Object> value, Class<T> cls) throws Exception {
         List<T> list = new ArrayList<T>();
         int index = 1;
         prestmt = connection.prepareStatement(sql);
@@ -217,50 +203,7 @@ public class JDBCutils
         return list;
     }
 
-    public void closeConnection()
-    {
-        if (resultset != null)
-        {
-            try
-            {
-                resultset.close();
-            } catch (SQLException e)
-            {
-                e.printStackTrace();
-            }
-        }
-        if (prestmt != null)
-        {
-            try
-            {
-                prestmt.close();
-            } catch (SQLException e)
-            {
-                e.printStackTrace();
-            }
-        }
-        if (connection != null)
-        {
-            try
-            {
-                connection.close();
-            } catch (SQLException e)
-            {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    /**
-     * add data to database
-     *
-     * @param sql   the sql statement prepared to act
-     * @param value the value prepared to change
-     * @return if the line quantity be changed > 0
-     * @throws SQLException
-     */
-    public boolean updateByPrepareStatement(String sql, List<Object> value) throws SQLException
-    {
+    public boolean updateByPrepareStatement(String sql, List<Object> value) throws SQLException {
         prestmt = connection.prepareStatement(sql);
         int index = 1;
         if (value != null && !value.isEmpty())
@@ -274,99 +217,21 @@ public class JDBCutils
         return prestmt.executeUpdate() > 0;
     }
 
-    /**
-     * to query one line data
-     *
-     * @param sql   the sql statement prepared to act
-     * @param value the value prepared to change
-     * @return one line data by map
-     * @throws SQLException
-     */
-    public Map<String, Object> findSimpleResult(String sql, List<Object> value) throws SQLException
-    {
-        Map<String, Object> map = new HashMap<String, Object>();
-        int index = 1;
-        //get sql statement from input
+    public void deteleByPrepareStatement(String sql, List<Object> value) throws SQLException {
         prestmt = connection.prepareStatement(sql);
-        //set params of sql
+        int index = 1;
         if (value != null && !value.isEmpty())
         {
-
             for (Object aValue : value)
             {
                 prestmt.setObject(index++, aValue);
             }
+
         }
-        //get the data of database
-        resultset = prestmt.executeQuery();
-        //get the column information
-        ResultSetMetaData col_data = resultset.getMetaData();
-        //get the column count
-        int col_count = col_data.getColumnCount();
-        //get the column and column's value and then put into HashMap
-        while (resultset.next())
-        {
-            for (int i = 0; i < col_count; i++)
-            {
-                String cols_name = col_data.getColumnName(i + 1);
-                Object cols_value = resultset.getObject(cols_name);
-                if (cols_value == null)
-                {
-                    cols_value = "";
-                }
-                map.put(cols_name, cols_value);
-            }
-        }
-        return map;
+        prestmt.execute();
     }
 
-    /**
-     * to query more line data
-     *
-     * @param sql   the sql statement prepared to act
-     * @param value the value prepared to change
-     * @return more line data by list
-     * @throws SQLException
-     */
-    public List<HashMap<String, Object>> findMoreResult(String sql, List<Object> value) throws SQLException
-    {
-        ArrayList<HashMap<String, Object>> list = new ArrayList<>();
-        int index = 1;
-        prestmt = connection.prepareStatement(sql);
-        if (value != null && !value.isEmpty())
-        {
-
-            for (Object aValue : value)
-            {
-                prestmt.setObject(index++, aValue);
-            }
-        }
-        prestmt.executeQuery();
-        resultset = prestmt.getResultSet();
-        ResultSetMetaData col_data = resultset.getMetaData();
-        int col_count = col_data.getColumnCount();
-        while (resultset.next())
-        {
-            HashMap<String, Object> map = new HashMap<>();
-            for (int i = 0; i < col_count; i++)
-            {
-                String cols_name = col_data.getColumnName(i + 1);
-                Object cols_value = resultset.getObject(cols_name);
-                if (cols_value == null)
-                {
-                    cols_value = "";
-                }
-                map.put(cols_name, cols_value);
-            }
-            list.add(map);
-
-        }
-        return list;
-    }
-
-    // jdbc的封装可以用反射机制来封装：
-    public <T> T findSimpleRefResult(String sql, List<Object> value, Class<T> cls) throws Exception
-    {
+    public <T> T findSimpleRefResult(String sql, List<Object> value, Class<T> cls) throws Exception {
         T resultObject = null;
         int index = 1;
         prestmt = connection.prepareStatement(sql);
