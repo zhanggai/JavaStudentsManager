@@ -1,10 +1,10 @@
 package com.java.model;
 
-import java.awt.Font;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 /**
  * <p>Description: a button model</p> </p>
  *

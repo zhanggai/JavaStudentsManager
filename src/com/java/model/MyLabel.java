@@ -1,8 +1,8 @@
 package com.java.model;
 
-import java.awt.Font;
+import javax.swing.*;
+import java.awt.*;
 
-import javax.swing.JLabel;
 /**
  * <p>Description: a label model</p>
  *

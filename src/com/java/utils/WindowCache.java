@@ -1,10 +1,7 @@
 package com.java.utils;
 
 import com.java.model.MyWindow;
-import com.java.windows.AboutUs;
-import com.java.windows.AddStudent;
-import com.java.windows.HomePage;
-import com.java.windows.Login;
+import com.java.windows.*;
 
 import java.util.HashMap;
 
@@ -24,6 +21,7 @@ public class WindowCache
     {
         windowMap.put("login", new Login());
         windowMap.put("home_page", new HomePage());
+        windowMap.put("show_student", new ShowStudent());
         windowMap.put("add_student", new AddStudent());
         windowMap.put("about_us", new AboutUs());
         windowMap.put(null, null);

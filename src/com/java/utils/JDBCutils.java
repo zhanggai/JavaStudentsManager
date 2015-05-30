@@ -16,14 +16,22 @@ import java.util.List;
 public class JDBCutils
 {
     //define username and password of database
-    private final String USERNAME = "admin";
-    private final String PASSWORD = "123456";
+    private static final String USERNAME = "admin";
+    private static final String PASSWORD = "123456";
     //define the Driver information
-    private final String DRIVER = "com.mysql.jdbc.Driver";
+    private static final String DRIVER = "com.mysql.jdbc.Driver";
     //define the url of database
-    private final String DBURL = "jdbc:mysql://localhost:3306/students";
+    private static final String DBURL = "jdbc:mysql://localhost:3306/students";
+    private static JDBCutils dbutil;
     //define the connection
-    private Connection connection;
+    private static Connection connection;
+
+    static
+    {
+        dbutil = new JDBCutils();
+        connection = JDBCutils.getConnection();
+    }
+
     //define the sql pre statement
     private PreparedStatement prestmt;
     //define the result set
@@ -40,30 +48,41 @@ public class JDBCutils
         {
             e.printStackTrace();
         }
-        getConnection();
     }
 
-    /* public static void main(String[] args)
-     {
-         //JDBCutils.getData();
-
-
-   //                      利用反射机制查询一条记录
-         *//*        String sql = "select * from student where id = ? ";
+    public static void getAStudent()
+    {
+        //                      利用反射机制查询一条记录
+        String sql = "select * from student where id = ? ";
                     List<Object> values = new ArrayList<>();
-                    values.add(2014011003);
+        values.add(2014011111);
 
                     try
                     {
-                        System.out.println(dbutil.findSimpleRefResult(sql, values, Information.class));
+                        System.out.println(dbutil.findSimpleRefResult(sql, values, Student.class));
                     } catch (Exception e)
                     {
                         e.printStackTrace();
-                    }*//*
-        }*/
+                    }
+    }
+
+    public static void modifiedAStudent(String field, String value, String id)
+    {
+        String sql = "update student set " + field + "=? where id=?";
+        List<Object> values = new ArrayList<>();
+        values.add(value);
+        values.add(id);
+        try
+        {
+            dbutil.updateByPrepareStatement(sql, values);
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     //删除数据表中的一条学生数据
     public static void deleteAStudent(String id) {
-        JDBCutils dbutil = new JDBCutils();
         String sql = "delete from student where id=?";
         List<Object> values = new ArrayList<>();
         values.add(id);
@@ -77,7 +96,7 @@ public class JDBCutils
 
     //增加一名学生的信息到数据表
     public static void addAStudent(String id, String name, String sex, String nativePlace, String birth) {
-        JDBCutils dbutil = new JDBCutils();
+
         String sql = "insert into student(id,name,sex,nativePlace,birthday) values(?,?,?,?,?)";
         List<Object> values = new ArrayList<>();
         values.add(id);
@@ -95,8 +114,9 @@ public class JDBCutils
     }
 
     //以存放了Student对象的List的形式返回数据表中的所有数据
-    public static List<Student> getData() {
-        JDBCutils dbutil = new JDBCutils();
+    public static List<Student> getAllStudent()
+    {
+
         List<Student> list = null;
         String sql = "select * from student";
         try
@@ -104,9 +124,7 @@ public class JDBCutils
             list = dbutil.findMoreRefResult(sql, null, Student.class);
         } catch (Exception e)
         {
-            // TODO: handle exception
-        } finally {
-            dbutil.closeConnection();
+            System.out.println("获取数据出现异常");
         }
         return list;
     }
@@ -114,7 +132,8 @@ public class JDBCutils
     /**
      * @return 获得数据库的连接
      */
-    public Connection getConnection() {
+    public static Connection getConnection()
+    {
         try
         {
 //            注册驱动
@@ -127,6 +146,9 @@ public class JDBCutils
         return connection;
     }
 
+    /**
+     * 关闭数据库的连接
+     */
     public void closeConnection() {
         if (resultset != null)
         {
@@ -193,7 +215,7 @@ public class JDBCutils
                     field.set(resultObject, cols_value);
                 } catch (IllegalArgumentException e)
                 {
-                    //TODO
+                    System.out.println("输入的值不匹配数据库的要求");
                 }
 
             }

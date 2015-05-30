@@ -1,19 +1,17 @@
 package com.java.model;
 
-import com.java.data.Data;
+
+import com.java.utils.JDBCutils;
 
 import javax.swing.table.AbstractTableModel;
-/**
- * <p>Description: a table model</p>
- *
- * @author XuDing
- * @version 1.0
- */
+import java.util.List;
+
+
 public class MyTableModel extends AbstractTableModel
 {
 
+    public static List<Student> studentsData = JDBCutils.getAllStudent();
     String[] columnNames = {"学号", "姓名", "性别", "籍贯", "生日"};
-    Data studentsData = Data.getData();
 
     // get the number of rows
     @Override
@@ -51,23 +49,24 @@ public class MyTableModel extends AbstractTableModel
     //set the value of what you are editing.
     public void setValueAt(Object value, int row, int col)
     {
-        Student student = studentsData.get(row);
+        Student student = MyTableModel.studentsData.get(row);
         switch (col)
         {
-            case 0:
-                student.setId((String) value);
-                break;
             case 1:
                 student.setName((String) value);
+                JDBCutils.modifiedAStudent("name", (String) value, student.getId());
                 break;
             case 2:
                 student.setSex((String) value);
+                JDBCutils.modifiedAStudent("sex", (String) value, student.getId());
                 break;
             case 3:
                 student.setNativePlace((String) value);
+                JDBCutils.modifiedAStudent("nativePlace", (String) value, student.getId());
                 break;
             case 4:
                 student.setBirthday((String) value);
+                JDBCutils.modifiedAStudent("birthday", (String) value, student.getId());
                 break;
             default:
                 break;

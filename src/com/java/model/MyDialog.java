@@ -1,8 +1,9 @@
 package com.java.model;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
+
 /**
- * <p>Description: </p>
+ * 用于弹出对话框
  *
  * @author XuDing
  * @version 1.0
@@ -10,7 +11,7 @@ import javax.swing.JOptionPane;
 public class MyDialog
 {
     public static void show(String message)
-    {// 该函数封装了显示对话框的功能
+    {
         JOptionPane.showMessageDialog(null, message, "", JOptionPane.CLOSED_OPTION);
     }
 }

@@ -1,6 +1,7 @@
 package com.java.model;
 
-import javax.swing.JTextField;
+import javax.swing.*;
+
 /**
  * <p>Description: a textField model</p>
  *

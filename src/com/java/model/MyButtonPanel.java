@@ -1,6 +1,7 @@
 package com.java.model;
 
-import javax.swing.JPanel;
+import javax.swing.*;
+
 /**
  * <p>Description: </p>
  *

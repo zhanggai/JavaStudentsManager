@@ -2,13 +2,8 @@ package com.java.model;
 
 import com.java.utils.Strings;
 
-import java.awt.Font;
-import java.awt.Toolkit;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * <p>
