@@ -3,7 +3,7 @@ package com.java.model;
 import javax.swing.*;
 
 /**
- * <p>Description: a textField model</p>
+ * 重写的JTextField
  *
  * @author XuDing
  * @version 1.0

@@ -3,7 +3,7 @@ package com.java.model;
 import javax.swing.*;
 
 /**
- * <p>Description: </p>
+ * 重写的JPanel类，用来放置一组按钮
  *
  * @author XuDing
  * @version 1.0

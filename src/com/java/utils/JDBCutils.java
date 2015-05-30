@@ -15,57 +15,54 @@ import java.util.List;
  */
 public class JDBCutils
 {
-    //define username and password of database
-    private static final String USERNAME = "admin";
-    private static final String PASSWORD = "123456";
-    //define the Driver information
-    private static final String DRIVER = "com.mysql.jdbc.Driver";
-    //define the url of database
-    private static final String DBURL = "jdbc:mysql://localhost:3306/students";
+    //定义数据库的连接
+    public static Connection connection;
+    //定义数据库工具的对象
     private static JDBCutils dbutil;
-    //define the connection
-    private static Connection connection;
 
+    //静态初始化对象和连接
     static
     {
         dbutil = new JDBCutils();
         connection = JDBCutils.getConnection();
     }
 
-    //define the sql pre statement
+    //定义执行语句
     private PreparedStatement prestmt;
-    //define the result set
+    //定义存放返回结果的集合
     private ResultSet resultset;
 
     public JDBCutils()
     {
         try
         {
-            //load the driver
-            Class.forName(DRIVER);
-            System.out.println("注册驱动成功");
+            //载入驱动
+            Class.forName(Strings.DRIVER);
         } catch (ClassNotFoundException e)
         {
             e.printStackTrace();
         }
     }
 
-    public static void getAStudent()
+    // 利用反射机制查询一个学生的信息
+    public static Student getAStudent(String id)
     {
-        //                      利用反射机制查询一条记录
+        Student student = null;
         String sql = "select * from student where id = ? ";
-                    List<Object> values = new ArrayList<>();
-        values.add(2014011111);
-
-                    try
-                    {
-                        System.out.println(dbutil.findSimpleRefResult(sql, values, Student.class));
-                    } catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
+        List<Object> values = new ArrayList<>();
+        values.add(id);//把values数组中的值填充到？处
+        try
+        {
+            //返回查询到的一个学生对象
+            student = dbutil.findSimpleRefResult(sql, values, Student.class);
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return student;
     }
 
+    //修改一个学生的信息
     public static void modifiedAStudent(String field, String value, String id)
     {
         String sql = "update student set " + field + "=? where id=?";
@@ -74,6 +71,7 @@ public class JDBCutils
         values.add(id);
         try
         {
+//            执行sql语句
             dbutil.updateByPrepareStatement(sql, values);
         } catch (Exception e)
         {
@@ -82,20 +80,24 @@ public class JDBCutils
     }
 
     //删除数据表中的一条学生数据
-    public static void deleteAStudent(String id) {
+    public static void deleteAStudent(String id)
+    {
         String sql = "delete from student where id=?";
         List<Object> values = new ArrayList<>();
         values.add(id);
-        try {
+        try
+        {
             dbutil.deteleByPrepareStatement(sql, values);
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
 
     }
 
     //增加一名学生的信息到数据表
-    public static void addAStudent(String id, String name, String sex, String nativePlace, String birth) {
+    public static void addAStudent(String id, String name, String sex, String nativePlace, String birth)
+    {
 
         String sql = "insert into student(id,name,sex,nativePlace,birthday) values(?,?,?,?,?)";
         List<Object> values = new ArrayList<>();
@@ -105,12 +107,15 @@ public class JDBCutils
         values.add(nativePlace);
         values.add(birth);
 
-        try {
+
+        try
+        {
             dbutil.updateByPrepareStatement(sql, values);
-            System.out.println("添加到数据库成功");
-        } catch (SQLException e) {
+        } catch (SQLException e)
+        {
             e.printStackTrace();
         }
+
     }
 
     //以存放了Student对象的List的形式返回数据表中的所有数据
@@ -121,6 +126,7 @@ public class JDBCutils
         String sql = "select * from student";
         try
         {
+//            返回存放了的所有的学生对象的List
             list = dbutil.findMoreRefResult(sql, null, Student.class);
         } catch (Exception e)
         {
@@ -129,6 +135,19 @@ public class JDBCutils
         return list;
     }
 
+    //判断学号是否重复
+    public static boolean confirmRepeat(String value) throws SQLException
+    {
+        boolean flag = false;
+        String sql = "select  * from  student where id =" + value;
+        PreparedStatement prestmt = connection.prepareStatement(sql);
+        ResultSet resultset = prestmt.executeQuery();
+        if (resultset.next())
+        {
+            flag = true;
+        }
+        return flag;
+    }
     /**
      * @return 获得数据库的连接
      */
@@ -137,48 +156,18 @@ public class JDBCutils
         try
         {
 //            注册驱动
-            connection = DriverManager.getConnection(DBURL, USERNAME, PASSWORD);
+            connection = DriverManager.getConnection(Strings.DBURL, Strings.DB_USERNAME, Strings.DB_PASSWORD);
         } catch (SQLException e)
         {
             e.printStackTrace();
         }
-        System.out.println("连接数据库成功");
         return connection;
     }
 
-    /**
-     * 关闭数据库的连接
-     */
-    public void closeConnection() {
-        if (resultset != null)
-        {
-            try {
-//                关闭结果集合连接
-                resultset.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        if (prestmt != null) {
-            try {
-//                关闭MySQL执行语句连接
-                prestmt.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        if (connection != null) {
-            try {
-//                关闭数据库连接
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
-    public <T> List<T> findMoreRefResult(String sql, List<Object> value, Class<T> cls) throws Exception {
-        List<T> list = new ArrayList<T>();
+    public <T> List<T> findMoreRefResult(String sql, List<Object> value, Class<T> cls) throws Exception
+    {
+        List<T> list = new ArrayList<>();
         int index = 1;
         prestmt = connection.prepareStatement(sql);
         if (value != null && !value.isEmpty())
@@ -225,7 +214,8 @@ public class JDBCutils
         return list;
     }
 
-    public boolean updateByPrepareStatement(String sql, List<Object> value) throws SQLException {
+    public boolean updateByPrepareStatement(String sql, List<Object> value) throws SQLException
+    {
         prestmt = connection.prepareStatement(sql);
         int index = 1;
         if (value != null && !value.isEmpty())
@@ -239,7 +229,8 @@ public class JDBCutils
         return prestmt.executeUpdate() > 0;
     }
 
-    public void deteleByPrepareStatement(String sql, List<Object> value) throws SQLException {
+    public void deteleByPrepareStatement(String sql, List<Object> value) throws SQLException
+    {
         prestmt = connection.prepareStatement(sql);
         int index = 1;
         if (value != null && !value.isEmpty())
@@ -253,7 +244,8 @@ public class JDBCutils
         prestmt.execute();
     }
 
-    public <T> T findSimpleRefResult(String sql, List<Object> value, Class<T> cls) throws Exception {
+    public <T> T findSimpleRefResult(String sql, List<Object> value, Class<T> cls) throws Exception
+    {
         T resultObject = null;
         int index = 1;
         prestmt = connection.prepareStatement(sql);
@@ -286,10 +278,13 @@ public class JDBCutils
                     field.set(resultObject, cols_value);
                 } catch (IllegalArgumentException e)
                 {
-                    System.out.println(e);
+                    System.out.println("不合法的参数");
                 }
             }
         }
         return resultObject;
     }
+
+
 }
+

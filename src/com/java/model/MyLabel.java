@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * <p>Description: a label model</p>
+ * 重写的JLabel类
  *
  * @author XuDing
  * @version 1.0

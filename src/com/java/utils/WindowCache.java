@@ -6,7 +6,7 @@ import com.java.windows.*;
 import java.util.HashMap;
 
 /**
- * <p>Description: a container for window instance</p>
+ * 存放了所有窗口对象的类，当需要显示一个窗口时，就将该窗口对象调用，避免重复建立窗口对象
  *
  * @author XuDing
  * @version 1.0
@@ -14,7 +14,7 @@ import java.util.HashMap;
 
 public class WindowCache
 {
-    //save all window instance
+    //使用HashMap存放窗口对象
     static HashMap<String, MyWindow> windowMap = new HashMap<>();
 
     static
@@ -29,13 +29,13 @@ public class WindowCache
 
     public static void showWindow(String key)
     {
-        getWindow(key).setVisible(true);
+        windowMap.get(key).setVisible(true);
     }
 
-    public static MyWindow getWindow(String key)
+    /*public static MyWindow getWindow(String key)
     {
         return windowMap.get(key);
-    }
+    }*/
 }
 
 
