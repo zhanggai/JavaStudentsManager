@@ -1,6 +1,5 @@
 package com.java.model;
 
-
 import com.java.utils.ConfirmInput;
 import com.java.utils.JDBCutils;
 
@@ -17,30 +16,48 @@ public class MyTableModel extends AbstractTableModel {
     //  用数组放置要显示出来的列名
     String[] columnNames = {"学号", "姓名", "性别", "籍贯", "生日"};
 
-    //返回已经存储的学生信息个数
+    /**
+     * @return 返回已经存储的学生信息个数
+     */
     @Override
     public int getRowCount() {
         return studentsData.size();
     }
 
-    //返回列的列的数量
+    /**
+     * @return 返回列的列的数量
+     */
     @Override
     public int getColumnCount() {
         return columnNames.length;
     }
 
-    //    获得正在编辑的某个单元格的内容
+    /**
+     * @param rows 正在编辑的行号
+     * @param cols 正在编辑的列号
+     * @return 获得正在编辑的某个单元格的内容
+     */
     @Override
     public Object getValueAt(int rows, int cols) {
         return studentsData.get(rows).getData()[cols];
     }
 
-    // 获得列名
+    /**
+     * @param col 要获得列名所在的列号
+     * @return 获得列名
+     */
     public String getColumnName(int col) {
         return columnNames[col];
     }
 
-    // 设置第一列（学号）不可编辑
+
+    /**
+     * 设置某一列（学号）不可编辑
+     *
+     * @param row 要设置不可编辑的单元格行号
+     * @param col 要设置不可编辑的单元格列号
+     * @return 如果为第一列返回false
+     */
     public boolean isCellEditable(int row, int col) {
         //col == 0 ? false : true
         return col != 0;
@@ -49,9 +66,10 @@ public class MyTableModel extends AbstractTableModel {
 
     /**
      * 把正在编辑的单元格的值设置为新值
+     *
      * @param value 在单元格中输入的值
-     * @param row 该单元格的行
-     * @param col 该单元格的列
+     * @param row   该单元格的行
+     * @param col   该单元格的列
      */
     public void setValueAt(Object value, int row, int col) {
         Student student = MyTableModel.studentsData.get(row);

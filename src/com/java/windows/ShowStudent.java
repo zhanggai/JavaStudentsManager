@@ -1,14 +1,12 @@
 package com.java.windows;
 
 import com.java.model.MyButton;
-import com.java.model.MyLabel;
 import com.java.model.MyTableModel;
 import com.java.model.MyWindow;
 import com.java.utils.JDBCutils;
 import com.java.utils.WindowCache;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -21,12 +19,8 @@ public class ShowStudent extends MyWindow {
     public ShowStudent() {
         initialWindow("学生信息", "学生信息", new int[]{238, 10, 173, 45});
         JTable table = new JTable(new MyTableModel());//将重写的TableModel加载到Jtable里以显示数据
-        table.setAutoCreateRowSorter(true);//添加排序功能
         initPane(table);
         initButton(table);
-        MyLabel sortLabel = new MyLabel("点击列名可以排序", 10, 65, 220, 12);
-        sortLabel.setFont(new Font("微软雅黑", Font.PLAIN, 12));
-        contentPane.add(sortLabel);
     }
 
     public void initPane(JTable table) {
