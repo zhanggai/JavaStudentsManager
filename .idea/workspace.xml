@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="051eb463-78e7-4e6f-a2af-0920162ef6fe" name="Default" comment="completed notes of Chinese">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/java/model/MyTableModel.java" afterPath="$PROJECT_DIR$/src/com/java/model/MyTableModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/java/windows/ShowStudent.java" afterPath="$PROJECT_DIR$/src/com/java/windows/ShowStudent.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="f46542d4-ed99-47c7-828e-2d281b1f5850" name="Failed commit: Default" comment="Added the lost file!!!   It is a hell    !!!!!!!!" />
@@ -814,7 +812,7 @@
       <option name="number" value="Default" />
       <updated>1429589656474</updated>
       <workItem from="1433146881888" duration="663000" />
-      <workItem from="1433148993411" duration="10957000" />
+      <workItem from="1433148993411" duration="10967000" />
     </task>
     <task id="LOCAL-00001" summary="Added a model of window.">
       <created>1429628264532</created>
@@ -1014,11 +1012,17 @@
       <option name="project" value="LOCAL" />
       <updated>1433159433559</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="completed notes of Chinese">
+      <created>1433162613597</created>
+      <option name="number" value="00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1433162613597</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11620000" />
+    <option name="totallyTimeSpent" value="11630000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
