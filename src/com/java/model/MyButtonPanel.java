@@ -8,15 +8,12 @@ import javax.swing.*;
  * @author XuDing
  * @version 1.0
  */
-public class MyButtonPanel extends JPanel
-{
-    public MyButtonPanel(int y)
-    {
+public class MyButtonPanel extends JPanel {
+    public MyButtonPanel(int y) {
         this(251, y, 192, 29);
     }
 
-    public MyButtonPanel(int x, int y, int width, int height)
-    {
+    public MyButtonPanel(int x, int y, int width, int height) {
         setBounds(x, y, width, height);
     }
 

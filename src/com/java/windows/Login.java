@@ -44,6 +44,12 @@ public class Login extends MyWindow {
         contentPane.add(button_login);
     }
 
+    /**
+     * 验证管理员登录
+     *
+     * @param id       管理员账户
+     * @param password 管理员密码
+     */
     public void loginConfirm(String id, String password) {
         if (id.equals(Strings.ID) && password.equals(Strings.PASSWORD)) {
             WindowCache.showWindow("home_page");

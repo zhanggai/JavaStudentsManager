@@ -4,7 +4,6 @@ import com.java.model.*;
 import com.java.utils.ConfirmInput;
 import com.java.utils.JDBCutils;
 import com.java.utils.WindowCache;
-import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -68,7 +67,11 @@ public class AddStudent extends MyWindow {
         contentPane.add(button_cancel);
     }
 
-    //   初始化性别选项
+    /**
+     * 初始化性别选项面板
+     *
+     * @param button_panel 传入一个盛放单选框的面板
+     */
     private void initButtonPanel(MyButtonPanel button_panel) {
         ButtonGroup radio_group = new ButtonGroup();
         JRadioButton male_button = new JRadioButton("男");

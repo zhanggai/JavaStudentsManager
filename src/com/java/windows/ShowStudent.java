@@ -1,6 +1,5 @@
 package com.java.windows;
 
-
 import com.java.model.MyButton;
 import com.java.model.MyLabel;
 import com.java.model.MyTableModel;
@@ -26,7 +25,7 @@ public class ShowStudent extends MyWindow {
         initPane(table);
         initButton(table);
         MyLabel sortLabel = new MyLabel("点击列名可以排序", 10, 65, 220, 12);
-        sortLabel.setFont(new Font("微软雅黑",Font.PLAIN,12));
+        sortLabel.setFont(new Font("微软雅黑", Font.PLAIN, 12));
         contentPane.add(sortLabel);
     }
 
@@ -87,12 +86,10 @@ public class ShowStudent extends MyWindow {
             public void actionPerformed(ActionEvent e) {
                 WindowCache.showWindow("login");
                 setVisible(false);
-                try
-                {
+                try {
 //                    关闭数据库连接
                     JDBCutils.connection.close();
-                } catch (SQLException e1)
-                {
+                } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
 

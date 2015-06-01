@@ -27,6 +27,11 @@ public class WindowCache
         windowMap.put(null, null);
     }
 
+    /**
+     * 通过传入窗口的key，显示这个窗口
+     *
+     * @param key 要显示的窗口对应的key
+     */
     public static void showWindow(String key)
     {
         windowMap.get(key).setVisible(true);

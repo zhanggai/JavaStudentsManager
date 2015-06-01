@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/StudentsManager.iml" filepath="$PROJECT_DIR$/StudentsManager.iml" />
+      <module fileurl="file://E:/EclipseWorkspace/StudentsManager/StudentsManager1.iml" filepath="E:/EclipseWorkspace/StudentsManager/StudentsManager1.iml" />
     </modules>
   </component>
 </project>

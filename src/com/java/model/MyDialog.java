@@ -8,10 +8,13 @@ import javax.swing.*;
  * @author XuDing
  * @version 1.0
  */
-public class MyDialog
-{
-    public static void show(String message)
-    {
+public class MyDialog {
+    /**
+     * 调用该方法将弹出一个对话框
+     *
+     * @param message 要显示在对话框里的信息
+     */
+    public static void show(String message) {
         JOptionPane.showMessageDialog(null, message, "", JOptionPane.WARNING_MESSAGE);
     }
 }
